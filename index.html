@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Trip Gudie - Discover India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
+        .hero-bg {
+            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+            background-size: cover;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+            <div class="flex justify-between items-center h-14 sm:h-16">
+                <div class="flex items-center min-w-0">
+                    <div class="flex items-center space-x-1 sm:space-x-2">
+                        <div class="text-xl sm:text-2xl lg:text-3xl">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP_oYWV_TWYWHouAOHiAwXZx889RTq-8un7Z5VcBqLtA&s" alt="" style="height: 40px; width: 40px; border-radius: 50%;">
+                        </div>
+                        <div class="text-sm sm:text-lg lg:text-2xl font-bold text-indigo-600 truncate" data-translate="siteTitle">GlobalTripGuide</div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-1 sm:space-x-2 lg:space-x-4 min-w-0">
+                    <select id="languageSelect" class="bg-white border border-gray-300 rounded-md px-1 sm:px-2 lg:px-3 py-1 sm:py-2 text-xs sm:text-sm min-w-0 flex-shrink-0 max-w-20 sm:max-w-none">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="ja">日本語</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="zh">中文</option>
+                        <option value="ru">Русский</option>
+                        <option value="ar">Arabic( العربية)</option>
+                        <option value="pt">Português</option>
+                        <option value="it">Italiano</option>
+                        <option value="ko">한국말</option>
+                        <option value="nl">DUTCH(NEDERLANDS)</option>
+                        <option value="sv">SVENSKA</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
+                    <button onclick="showCustomerLogin()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-1 sm:px-2 lg:px-4 py-1 sm:py-2 rounded-md text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0" data-translate="customerLogin">
+                        Customer Login
+                    </button>
+                    <button onclick="showGuideLogin()" class="bg-green-600 hover:bg-green-700 text-white px-1 sm:px-2 lg:px-4 py-1 sm:py-2 rounded-md text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0" data-translate="guidePortal">
+                        Guide Portal 
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <section id="heroSection" class="hero-bg text-white py-10 sm:py-16 lg:py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-2xl sm:text-3xl lg:text-5xl font-bold mb-4 sm:mb-6" data-translate="heroTitle" style="font-family: Pinyon Script, system-ui; color: black;">Discover Incredible India</h1>
+                <p class="text-sm sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-3xl mx-auto px-2" data-translate="heroSubtitle" style="font-family: Pinyon Script, system-ui; color: black; font-weight: 600;">Experience the magic of India with our expert local guides. From the majestic Himalayas to tropical beaches, explore diverse cultures, cuisines, and landscapes.</p>
+                <button onclick="showRegions()" class="bg-white text-indigo-600 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg font-semibold hover:bg-gray-100 transition duration-300" data-translate="startJourney">
+                    Start Your Journey
+                </button>
+            </div>
+        </section>
+
+        <!-- Regions Section -->
+        <section id="regionsSection" class="py-8 sm:py-12 lg:py-16 hidden bg-indigo-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center mb-6 sm:mb-8">
+                    <button onclick="showHome()" class="text-yellow-600 hover:text-yellow-800 mr-4 text-sm sm:text-base" data-translate="backToHome">
+                        ← Back to Home
+                    </button>
+                </div>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-10 lg:mb-12 text-white-800" data-translate="chooseRegion">Choose Your Zone</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" onclick="showStates('north')">
+                        <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="text-2xl sm:text-3xl lg:text-4xl mb-1 sm:mb-2">🏔️</div>
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-bold" data-translate="northIndia">Northern Zone</h3>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5 lg:p-6">
+                            <p class="text-gray-600 text-sm sm:text-base" data-translate="northDesc">Explore the majestic Himalayas, historic Delhi, and cultural treasures</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" onclick="showStates('east')">
+                        <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="text-2xl sm:text-3xl lg:text-4xl mb-1 sm:mb-2">🌿</div>
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-bold" data-translate="eastIndia">Eastern Zone</h3>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5 lg:p-6">
+                            <p class="text-gray-600 text-sm sm:text-base" data-translate="eastDesc">Discover rich heritage, tea gardens, and vibrant festivals</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" onclick="showStates('west')">
+                        <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="text-2xl sm:text-3xl lg:text-4xl mb-1 sm:mb-2">🏜️</div>
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-bold" data-translate="westIndia">Western Zone</h3>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5 lg:p-6">
+                            <p class="text-gray-600 text-sm sm:text-base" data-translate="westDesc">Experience royal palaces, deserts, and bustling cities</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" onclick="showStates('south')">
+                        <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="text-2xl sm:text-3xl lg:text-4xl mb-1 sm:mb-2">🏖️</div>
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-bold" data-translate="southIndia">Southern Zone</h3>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5 lg:p-6">
+                            <p class="text-gray-600 text-sm sm:text-base" data-translate="southDesc">Enjoy tropical beaches, ancient temples, and spicy cuisine</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" onclick="showStates('central')">
+                        <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="text-2xl sm:text-3xl lg:text-4xl mb-1 sm:mb-2">🏛️</div>
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-bold" data-translate="centralIndia">Central Zone</h3>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5 lg:p-6">
+                            <p class="text-gray-600 text-sm sm:text-base" data-translate="centralDesc">Discover ancient temples, wildlife sanctuaries, and tribal culture</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer" onclick="showStates('northeast')">
+                        <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="text-2xl sm:text-3xl lg:text-4xl mb-1 sm:mb-2">🦋</div>
+                                <h3 class="text-lg sm:text-xl lg:text-2xl font-bold" data-translate="northeastIndia">Northeastern Zone</h3>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-5 lg:p-6">
+                            <p class="text-gray-600 text-sm sm:text-base" data-translate="northeastDesc">Experience pristine nature, unique cultures, and breathtaking landscapes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- States Section -->
+        <section id="statesSection" class="py-8 sm:py-12 lg:py-16 hidden bg-indigo-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row sm:items-center mb-6 sm:mb-8">
+                    <button onclick="showRegions()" class="text-yellow-600 hover:text-yellow-800 mb-2 sm:mb-0 sm:mr-4 text-sm sm:text-base self-start" data-translate="backToRegions">
+                        ← Back to Zones
+                    </button>
+                    <h2 id="regionTitle" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-black-800"></h2>
+                </div>
+                <div id="statesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <!-- States will be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Tourist Places Section -->
+        <section id="placesSection" class="py-8 sm:py-12 lg:py-16 hidden bg-indigo-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row sm:items-center mb-6 sm:mb-8">
+                    <button onclick="goBackToStates()" class="text-yellow-600 hover:text-yellow-800 mb-2 sm:mb-0 sm:mr-4 text-sm sm:text-base self-start" data-translate="backToStates">
+                        ← Back to States
+                    </button>
+                    <h2 id="stateTitle" class="text-xl sm:text-2xl lg:text-3xl font-bold text-black-800"></h2>
+                </div>
+                <div id="placesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    <!-- Places will be populated here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Customer Login Modal -->
+    <div id="customerLoginModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-xl max-w-md w-full mx-2 sm:mx-0">
+            <div class="p-4 sm:p-6">
+                <div class="flex justify-between items-center mb-4 sm:mb-6">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-800" data-translate="customerLogin">Customer Login</h2>
+                    <button onclick="closeCustomerLogin()" class="text-gray-500 hover:text-gray-700 text-xl sm:text-2xl">×</button>
+                </div>
+               
+                <form id="customerLoginForm" onsubmit="submitCustomerLogin(event)">
+                    <div class="mb-3 sm:mb-4">
+                        <input type="text" data-translate="username" placeholder="Username" required class="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm sm:text-base">
+                    </div>
+                    <div class="mb-4 sm:mb-6">
+                        <input type="password" data-translate="password" placeholder="Password" required class="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm sm:text-base">
+                    </div>
+                   
+                    <div class="flex flex-col space-y-3">
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-2 sm:py-3 rounded-lg hover:bg-indigo-700 font-medium text-sm sm:text-base" data-translate="login">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide Portal Modal -->
+    <div id="guidePortalModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-xl max-w-md w-full mx-2 sm:mx-0">
+            <div class="p-4 sm:p-6">
+                <div class="flex justify-between items-center mb-4 sm:mb-6">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-800" data-translate="guideLogin">Guide Login</h2>
+                    <button onclick="closeGuidePortal()" class="text-gray-500 hover:text-gray-700 text-xl sm:text-2xl">×</button>
+                </div>
+               
+                <form id="guideLoginForm" onsubmit="submitGuideLogin(event)">
+                    <div class="mb-3 sm:mb-4">
+                        <input type="text" data-translate="username" placeholder="Username" required class="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base">
+                    </div>
+                    <div class="mb-4 sm:mb-6">
+                        <input type="password" data-translate="password" placeholder="Password" required class="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base">
+                    </div>
+                   
+                    <div class="flex flex-col space-y-3">
+                        <button type="submit" class="w-full bg-green-600 text-white py-2 sm:py-3 rounded-lg hover:bg-green-700 font-medium text-sm sm:text-base" data-translate="login">
+                            Login
+                        </button>
+                        <button type="button" onclick="showGuideRegistration()" class="w-full bg-gray-200 text-gray-700 py-2 sm:py-3 rounded-lg hover:bg-gray-300 font-medium text-sm sm:text-base" data-translate="registerAsGuide">
+                            Register as New Guide
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide Registration Modal -->
+    <div id="guideRegistrationModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-xl max-w-2xl w-full max-h-screen overflow-y-auto mx-2 sm:mx-0">
+            <div class="p-4 sm:p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800" data-translate="guideRegistration">Guide Registration</h2>
+                    <button onclick="closeGuideRegistration()" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+                </div>
+               
+                <form id="guideRegForm" onsubmit="submitGuideRegistration(event)">
+                    <!-- Personal Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-green-600" data-translate="personalInfo">Personal Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" data-translate="fullName" placeholder="Full Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="date" data-translate="dateOfBirth" placeholder="Date of Birth" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="email" data-translate="emailAddress" placeholder="Email Address" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="tel" data-translate="phoneNumber" placeholder="Phone Number" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <textarea data-translate="address" placeholder="Full Address" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent md:col-span-2 h-20 resize-none"></textarea>
+                            <input type="text" data-translate="city" placeholder="City" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="text" data-translate="state" placeholder="State" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        </div>
+                       
+                        <!-- Gender Selection -->
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="gender">Gender</label>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center">
+                                    <input type="radio" name="gender" value="male" required class="mr-2 text-green-600 focus:ring-green-500">
+                                    <span data-translate="male">Male</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="gender" value="female" required class="mr-2 text-green-600 focus:ring-green-500">
+                                    <span data-translate="female">Female</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Contact Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-green-600" data-translate="emergencyContact">Emergency Contact Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" data-translate="emergencyContactName" placeholder="Emergency Contact Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="text" data-translate="relation" placeholder="Relation" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="tel" data-translate="emergencyPhoneNumber" placeholder="Emergency Phone Number" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent md:col-span-2">
+                        </div>
+                    </div>
+
+                    <!-- Professional Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-green-600" data-translate="professionalInfo">Professional Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="number" data-translate="yearsOfExperience" placeholder="Years of Experience" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="text" data-translate="languagesSpoken" placeholder="Languages Spoken" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="text" data-translate="specialization" placeholder="Specialization Area" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="text" data-translate="tourLocation" placeholder="Tourist Tour Location" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        </div>
+                    </div>
+
+                    <!-- Verification Details -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-green-600" data-translate="verificationDetails">Verification Details</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" data-translate="governmentId" placeholder="Government ID Number" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <input type="text" data-translate="licenseNumber" placeholder="License Number" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        </div>
+                    </div>
+
+                    <!-- File Uploads -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-green-600" data-translate="documentsUpload">Documents Upload</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- ID Upload -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-green-500 transition-colors">
+                                <input type="file" id="idUpload" accept="image/*,.pdf" required class="hidden" onchange="handleFileUpload(this, 'idFileName')">
+                                <label for="idUpload" class="cursor-pointer">
+                                    <div class="text-gray-500 mb-2">📄</div>
+                                    <div class="text-sm font-medium text-gray-700" data-translate="uploadId">Upload Government ID</div>
+                                    <div class="text-xs text-gray-500 mt-1" data-translate="addFile">Add File</div>
+                                    <div id="idFileName" class="text-xs text-green-600 mt-1 hidden"></div>
+                                </label>
+                            </div>
+
+                            <!-- Certificate Upload -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-green-500 transition-colors">
+                                <input type="file" id="certificateUpload" accept="image/*,.pdf" required class="hidden" onchange="handleFileUpload(this, 'certificateFileName')">
+                                <label for="certificateUpload" class="cursor-pointer">
+                                    <div class="text-gray-500 mb-2">🏆</div>
+                                    <div class="text-sm font-medium text-gray-700" data-translate="uploadCertificate">Upload Certificate</div>
+                                    <div class="text-xs text-gray-500 mt-1" data-translate="addFile">Add File</div>
+                                    <div id="certificateFileName" class="text-xs text-green-600 mt-1 hidden"></div>
+                                </label>
+                            </div>
+
+                            <!-- Profile Photo Upload -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-green-500 transition-colors md:col-span-2">
+                                <input type="file" id="profilePhotoUpload" accept="image/*" required class="hidden" onchange="handleFileUpload(this, 'profilePhotoFileName')">
+                                <label for="profilePhotoUpload" class="cursor-pointer">
+                                    <div class="text-gray-500 mb-2">📸</div>
+                                    <div class="text-sm font-medium text-gray-700" data-translate="uploadProfilePhoto">Upload Profile Photo</div>
+                                    <div class="text-xs text-gray-500 mt-1" data-translate="addPhoto">Add Photo</div>
+                                    <div id="profilePhotoFileName" class="text-xs text-green-600 mt-1 hidden"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="closeGuideRegistration()" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50" data-translate="cancel">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700" data-translate="register">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Registration Modal -->
+    <div id="customerRegistrationModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-xl max-w-3xl w-full max-h-screen overflow-y-auto mx-2 sm:mx-0">
+            <div class="p-4 sm:p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800" data-translate="customerRegistration">Customer Registration</h2>
+                    <button onclick="closeCustomerRegistration()" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+                </div>
+               
+                <form id="customerRegForm" onsubmit="submitCustomerRegistration(event)">
+                    <!-- Personal Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-indigo-600" data-translate="personalInfo">Personal Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" data-translate="fullName" placeholder="Full Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="email" data-translate="emailAddress" placeholder="Email Address" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="tel" data-translate="phoneNumber" placeholder="Phone Number" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="text" data-translate="country" placeholder="Country" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="text" data-translate="state" placeholder="State" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+                       
+                        <!-- Gender Selection -->
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="gender">Gender</label>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center">
+                                    <input type="radio" name="customerGender" value="male" required class="mr-2 text-indigo-600 focus:ring-indigo-500">
+                                    <span data-translate="male">Male</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="customerGender" value="female" required class="mr-2 text-indigo-600 focus:ring-indigo-500">
+                                    <span data-translate="female">Female</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Travel Companion -->
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="travelingWith">Traveling With</label>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center">
+                                    <input type="radio" name="travelCompanion" value="family" required class="mr-2 text-indigo-600 focus:ring-indigo-500">
+                                    <span data-translate="family">Family</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="travelCompanion" value="friends" required class="mr-2 text-indigo-600 focus:ring-indigo-500">
+                                    <span data-translate="friends">Friends</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="travelCompanion" value="solo" required class="mr-2 text-indigo-600 focus:ring-indigo-500">
+                                    <span data-translate="solo">Solo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Travel Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-indigo-600" data-translate="travelInfo">Travel Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="number" data-translate="numberOfPeople" placeholder="Number of People" min="1" max="20" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="text" data-translate="touristPlace" placeholder="Tourist Place" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <select data-translate="travelDays" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                <option value="">Select Number of Days</option>
+                                <option value="1">1 Day</option>
+                                <option value="2">2 Days</option>
+                                <option value="3">3 Days</option>
+                                <option value="4">4 Days</option>
+                                <option value="5">5 Days</option>
+                                <option value="6">6 Days</option>
+                                <option value="7">7 Days</option>
+                            </select>
+                            <input type="text" data-translate="cityToVisit" placeholder="City to Visit" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+
+                        <!-- Contact Preference -->
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-translate="contactPreference">How would you like us to contact you?</label>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center">
+                                    <input type="radio" name="contactMethod" value="call" required class="mr-2 text-indigo-600 focus:ring-indigo-500">
+                                    <span data-translate="call">Call</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="contactMethod" value="message" required class="mr-2 text-indigo-600 focus:ring-indigo-500">
+                                    <span data-translate="message">Message</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Contact Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-indigo-600" data-translate="emergencyContact">Emergency Contact Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" data-translate="emergencyContactName" placeholder="Emergency Contact Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="tel" data-translate="emergencyPhoneNumber" placeholder="Emergency Phone Number" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="closeCustomerRegistration()" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50" data-translate="cancel">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700" data-translate="bookNow">
+                            Book Now
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tourist Registration Form -->
+    <div id="touristForm" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-xl max-w-2xl w-full max-h-screen overflow-y-auto mx-2 sm:mx-0">
+            <div class="p-4 sm:p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800" data-translate="bookTour">Book Your Tour</h2>
+                    <button onclick="closeTouristForm()" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+                </div>
+               
+                <form id="bookingForm" onsubmit="submitBooking(event)">
+                    <!-- Personal Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4 text-indigo-600" data-translate="personalInfo">Personal Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" data-translate="fullName" placeholder="Full Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="email" data-translate="emailAddress" placeholder="Email Address" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="tel" data-translate="phoneNumber" placeholder="Phone Number" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <input type="text" data-translate="countryState" placeholder="Country/State" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="closeTouristForm()" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50" data-translate="cancel">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700" data-translate="bookNow">
+                            Book Now
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentRegion = '';
+        let currentState = '';
+        let currentLanguage = 'en';
+
+        // States data for each region
+        const statesData = {
+            north: [
+                { name: 'Delhi', emoji: '🏛️', desc: 'Capital city with rich history and modern attractions' },
+                { name: 'Punjab', emoji: '🌾', desc: 'Land of five rivers and Golden Temple' },
+                { name: 'Haryana', emoji: '🏭', desc: 'Industrial hub with ancient heritage' },
+                { name: 'Himachal Pradesh', emoji: '🏔️', desc: 'Hill stations and adventure sports' },
+                { name: 'Uttarakhand', emoji: '🕉️', desc: 'Spiritual destinations and Himalayan beauty' },
+                { name: 'Jammu & Kashmir', emoji: '🏔️', desc: 'Paradise on earth with stunning landscapes' }
+            ],
+            east: [
+                { name: 'West Bengal', emoji: '🎭', desc: 'Cultural capital with rich literature and arts' },
+                { name: 'Odisha', emoji: '🏛️', desc: 'Ancient temples and classical dance forms' },
+                { name: 'Jharkhand', emoji: '⛰️', desc: 'Tribal culture and mineral wealth' },
+                { name: 'Bihar', emoji: '📿', desc: 'Buddhist heritage and ancient universities' }
+            ],
+            west: [
+                { name: 'Rajasthan', emoji: '🏰', desc: 'Royal palaces and desert landscapes' },
+                { name: 'Gujarat', emoji: '🦁', desc: 'Business hub and Asiatic lions' },
+                { name: 'Maharashtra', emoji: '🏙️', desc: 'Bollywood and financial capital' },
+                { name: 'Goa', emoji: '🏖️', desc: 'Beaches and Portuguese heritage' }
+            ],
+            south: [
+                { name: 'Tamil Nadu', emoji: '🏛️', desc: 'Ancient temples and classical arts' },
+                { name: 'Kerala', emoji: '🌴', desc: 'Backwaters and spice gardens' },
+                { name: 'Karnataka', emoji: '💻', desc: 'IT hub and historical monuments' },
+                { name: 'Andhra Pradesh', emoji: '🌶️', desc: 'Spicy cuisine and ancient Buddhist sites' },
+                { name: 'Telangana', emoji: '💎', desc: 'Pearls and modern technology' }
+            ],
+            central: [
+                { name: 'Madhya Pradesh', emoji: '🐅', desc: 'Tiger reserves and ancient temples' },
+                { name: 'Chhattisgarh', emoji: '🌿', desc: 'Tribal culture and natural beauty' },
+                { name: 'Uttar Pradesh', emoji: '🕌', desc: 'Taj Mahal and spiritual cities' }
+            ],
+            northeast: [
+                { name: 'Assam', emoji: '🍃', desc: 'Tea gardens and one-horned rhinos' },
+                { name: 'Meghalaya', emoji: '☔', desc: 'Wettest place on earth and living bridges' },
+                { name: 'Manipur', emoji: '💃', desc: 'Classical dance and natural beauty' },
+                { name: 'Tripura', emoji: '🏛️', desc: 'Royal heritage and bamboo crafts' },
+                { name: 'Nagaland', emoji: '🎪', desc: 'Tribal festivals and warrior culture' },
+                { name: 'Mizoram', emoji: '🎵', desc: 'Music and peaceful hills' },
+                { name: 'Arunachal Pradesh', emoji: '🌄', desc: 'Land of rising sun and monasteries' },
+                { name: 'Sikkim', emoji: '🏔️', desc: 'Himalayan kingdom and organic farming' }
+            ]
+        };
+
+        // Tourist places data for each state with images and prices
+        const placesData = {
+            'Delhi': [
+                { name: 'Red Fort', image: 'https://plus.unsplash.com/premium_photo-1697730373510-51b7fcf2ff52?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cmVkJTIwZm9ydHxlbnwwfHwwfHx8MA%3D%3D?w=400&h=300&fit=crop', desc: 'Mughal architecture masterpiece and UNESCO World Heritage site', price: '₹75 per person'},
+                { name: 'India Gate', image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=400&h=300&fit=crop', desc: 'War memorial and iconic landmark of New Delhi', price: '₹80 per person'},
+                { name: 'Qutub Minar', image: 'https://images.unsplash.com/photo-1716747713381-ebdd06319cdd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHF1dHViJTIwbWluYXJ8ZW58MHx8MHx8fDA%3D?w=400&h=300&fit=crop', desc: 'Tallest brick minaret in the world', price: '₹95 per person'},
+                { name: 'Lotus Temple', image: 'https://images.unsplash.com/photo-1688257609244-3f2a893f19d6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bG90dXMlMjB0ZW1wbGV8ZW58MHx8MHx8fDA%3D?w=400&h=300&fit=crop', desc: 'Bahai House of Worship with unique lotus design', price: '₹78 per person'}
+            ],
+            'Odisha': [
+                { name: 'Puri Temple', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx1d4arOmgCHt4VXLVhvO3lA-BzepiuOUbxSLPBZFGEQ&s=10w=400&h=300&fit=crop', desc: 'Significant Hindu pilgrimage site,famed for Sri Jaganath Temple', price: '₹80 per person'},
+                { name: 'Konarak', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTseCW2Tq7It80W0V96VZV7TefniKXjknd5zlLU2gcvqw&s=10w=400&h=300&fit=crop', desc: 'The site of the 13th-century Sun Temple, a now-ruined, UNESCO World Heritage site in Odisha,designed as a giant chariot dedicated to the Sun God Surya, famed for its intricate stone carvings and unique architecture', price: '₹79 per person'},
+                { name: 'Nandankanan', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt6lFL0jpT75HoOW5mEIwvePIZEAPAI71qLt76TR5Wz7CXjChD3q3RyODE&s=10w=400&h=300&fit=crop', desc: 'A natural forest-based zoo and botanical garden in Odisha', price: '₹87 per person'},
+                { name: 'Bhitarkanika', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF9qoLP4Rm8KqDYFFL01eJBJ74b8ilaQv11XzejY76YA&s=10w=400&h=300&fit=crop', desc: 'A national park,second-largest mangrove ecosystem in Odisha', price: '89 per person'}
+            ],
+            'Meghalaya': [
+                { name: 'Laitlum Canyons', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnzt6WGoDwk6fDqBbWzBDRggfJ2RR4g5GPn-6Z6SG79Q&s=10w=400&h=300&fit=crop', desc: 'A scenic viewpoint in Meghalaya, India, known for its breathtaking panoramic views of deep valleys, rolling hills, and misty landscapes, offering a serene, "end-of-the-world" vista', price: '₹87 per person'},
+                { name: 'Umiam lake', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL7b2M1lNrr-4A_vp5s-jAOM0oaoJhO75qTd_iAzsoSw&s=10w=400&h=300&fit=crop', desc: 'Umiam Lake -A large, scenic reservoir in Meghalaya, India', price: '₹79 per person'},
+                { name: 'Nohkalikai Falls', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKTaFHiHYdeKtyoPE7ivrUDAbgz0K3gHPlcRh6ZQX2nQ&s=10w=400&h=300&fit=crop', desc: 'Tallest plunge waterfall, plunging 340 meters into a green pool near Cherrapunji, Meghalaya', price: '₹87 per person'},
+                { name: 'Mawphlang Sacred Forest', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqEmuRzoCAl2oN8S1CKU2b0xQldFNMdx4Cb77wZHiCVw&s=10w=400&h=300&fit=crop', desc: 'The Mawphlang Sacred Forest - an untouched, ancient forest in Meghalaya, revered by the Khasi people for its cultural and spiritual significance, where nature is conserved through traditional beliefs, including the inviolability of the forest and offerings made to the local deity, Labasa', price: '89 per person'}
+            ],
+            'Manipur': [
+                { name: 'Loktak Lake', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdEuu0FOM1Dm8HDkrVcMiQFgR_vqUZFh4VaZozBfWC6g&s=10w=400&h=300&fit=crop', desc: 'Loktak Lake - Northeast largest freshwater lake', price: '₹83 per person'},
+                { name: 'Kangala fort', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRbgf7GIyuNhaXXq0BI6KZqMLqbbBgw1_HAafBx7F99w&s=10w=400&h=300&fit=crop', desc: 'A historic and sacred archaeological site in Imphal, Manipur', price: '₹70 per person'},
+                { name: 'Ema keithel market', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpz0poKjghB9XfxIm6KEy6TPGG7i5XtcSod2fnbiz9Cg&s=10w=400&h=300&fit=crop', desc: 'The worlds largest all-women market in Imphal, Manipur', price: '₹88 per person'},
+                { name: 'Shree Govindajee temple', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXtwKnCHShZ2VVYfcxjhVNJoH1uZE0GKPAJWryHo9M4Q&s=10w=400&h=300&fit=crop', desc: 'A large, historic Vaishnavite temple in Imphal, Manipur, known for its twin gold domes and sacred complex dedicated to Lord Govinda, serving as a major spiritual center for the Meitei people', price: '83 per person'}
+            ],
+            'Tripura': [
+                { name: 'Ujjaynta palace', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4eK5WNZEMLCcqUHhPYgwbMcQIVqYzQgdNa1J-ztk-fg&s=10w=400&h=300&fit=crop', desc: 'A majestic Indo-Saracenic building in Agartala, Tripura, that was once the royal residence of the Manikya dynasty and now houses the State Museum', price: '₹89 per person'},
+                { name: 'Tripura sundari temple', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCPk5hlLVsWWDwp7GGCgx73sMmxk4BLaQXY9_UFK4Xug&s=10w=400&h=300&fit=crop', desc: 'An ancient and sacred Hindu temple, one of the 51 Shakti Peethas, where the right toe of Goddess Sati fell, embodying cultural and spiritual significance for Northeast India and devotees worldwide', price: '₹76 per person'},
+                { name: 'Unakoti', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh55ItATDGPbrnTo45fuPIQVdd-s9Pfz2zVYDKS00OyA&s=10w=400&h=300&fit=crop', desc: 'An ancient Shaivite pilgrimage site in Tripura, India, famous for its massive, ancient rock-cut sculptures of Hindu deities carved into the hillsides', price: '₹81 per person'},
+                { name: 'Neermahal water palace', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2y2tlCvG65EEdXbcpsGLQNxf7NCkOeBLjSuSVVRwWUg&s=10w=400&h=300&fit=crop', desc: 'A majestic former royal summer residence built by King Bir Bikram Kishore Manikya Bahadur in the 1930s, located in the middle of the Rudrasagar Lake in Tripura', price: '89 per person'}
+            ],
+            'Nagaland': [
+                { name: 'Kohima', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNFozLqxVrGQCmiJvtkyETXBKqpIu6PMzPpVXXSesXZw&s=10w=400&h=300&fit=crop', desc: 'A picturesque, hilly capital city in Northeast where the natural beauty of the Eastern Himalayas meets the enduring culture of the Naga people', price: '₹80 per person'},
+                { name: 'Dzukou valley', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJSS3aMt95O1brGNwDzf4-S2Ca3S4QyabwwrTs-ZIiBw&s=10w=400&h=300&fit=crop', desc: 'A picturesque "valley of flowers" on the Manipur-Nagaland border in Northeast India', price: '₹75 per person'},
+                { name: 'Dimapur', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTo3g6pmBjjSH2vfXxjJEqt_KTGgWVCe81NoG7KTOemg&s=10w=400&h=300&fit=crop', desc: 'Largest city and primary commercial hub, known as the "Gateway to Nagaland," situated on the plains of the Dhansiri River and home to ancient Kachari ruins from the past as the capital of the ancient Kachari tribe', price: '₹87 per person'},
+                { name: 'Mokokchung', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCx52p8aE9cm13PB1hnwqt7tdgQKQzWm4KSN78RqridA&s=10w=400&h=300&fit=crop', desc: '"Land of Pioneers," a peaceful hill station in Nagaland, India, known as the cultural and intellectual center of the state and the homeland of the Ao Naga tribe', price: '89 per person'}
+            ],
+            'Mizoram': [
+                { name: 'Phawngpui Peak', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdxnrwIPR0zeAt0n9xo3ajOwUyajCDHpMv5jmdOXO6KA&s=10w=400&h=300&fit=crop', desc: 'The highest peak in Mizoram, India', price: '₹90 per person'},
+                { name: 'Vantawng Falls', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4NnjsQ5Ik36rKvXDMaid4S_wJqvO8Pl5I6xm9iKtz8g&s=10w=400&h=300&fit=crop', desc: 'Mizorams highest and most spectacular waterfall, a two-tiered cascade on the Vanva River near Thenzawl, named after a local legend, and is surrounded by lush green forests and can be viewed from a specially constructed tower', price: '₹88 per person'},
+                { name: 'Murlen National part', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2deQJnMuQi86ssrMkg-89cAsW00tNyBHn2x6enhioGA&s=10w=400&h=300&fit=crop', desc: 'A protected area of dense, diverse subtropical, semi-evergreen, and sub-montane forests and grasslands in Mizoram, India, near the Indo-Myanmar border, known for its rich biodiversity including tigers, leopards, and numerous bird and plant species', price: '₹87 per person'},
+                { name: 'Tamdi Lake', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM8oC6ARoM-fmYnYRIATilfwIM_DmVpP-rKyKUzcMPJg&s=10w=400&h=300&fit=crop', desc: 'A popular, naturally formed "Mustard Lake" in Mizoram, developed as a holiday resort and pisciculture center, known for its serene, forested environment and rich biodiversity', price: '₹79 per person'}
+            ],
+            'Arunachal Pradesh': [
+                { name: 'Tawang', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAg2YJq0AZ89c-vQhcNlii4xBLDPCNIcxyj0RDQN6t7g&s=10w=400&h=300&fit=crop', desc: 'A picturesque town in Arunachal Pradesh known for its stunning Himalayan landscapes, serene lakes, and the magnificent Tawang Monastery, a significant center of Tibetan Buddhism and the largest monastery in India', price: '₹87 per person'},
+                { name: 'Ziro valley ', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyP2HoHG_vukqmTjXjw67-MbZBDr5q9lIBdLYUBkoV_Q&s=10w=400&h=300&fit=crop', desc: 'A picturesque UNESCO World Heritage Site in Arunachal Pradesh', price: '₹70 per person'},
+                { name: 'Itanagar', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcmsMz_4XYGDg99VsZ6F6zMN9LuoKcqWlctUATK6fsRZD5ELtT7PCgI0A&s=10w=400&h=300&fit=crop', desc: 'The capital of Arunachal Pradesh, located at the foothills of the Himalayas, known for its beautiful natural surroundings, rich tribal culture, and historical sites like the 14th-century Ita Fort', price: '₹82 per person'},
+                { name: 'Sela pass', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJaEfSlV_G4EYqzX193CcXEuSCV9v70iv6xaxGMLWfrw&s=10w=400&h=300&fit=crop', desc: 'A high-altitude, snow-covered mountain pass in Arunachal Pradesh, India, at approximately 13,700 feet, connecting the town of Tawang to the rest of the country via the crucial National Highway 13, and is known for its scenic views and the sacred Sela Lake', price: '85 per person'}
+            ],
+            'Sikkim': [
+                { name: 'Gangtok', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ6w-dfJnjU9OX748xCCv-wEWmfNjAYW_S_DIQ587MxQ&s=10w=400&h=300&fit=crop', desc: 'The picturesque capital of Indias Sikkim state, a cosmopolitan hill station offering breathtaking views of the Himalayas, vibrant Buddhist culture, adventure opportunities, and a clean, friendly environment', price: '₹90 per person'},
+                { name: 'Tsomgo Lake', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq6PLAHpLblRQn9N1dXJj3nfwZnTTMQuOWagHKAIzNNw&s=10w=400&h=300&fit=crop', desc: 'A sacred, high-altitude glacial lake in Sikkim, India, surrounded by snow-capped mountains, known for its changing appearance with seasons and its significance to local culture and religion', price: '₹79 per person'},
+                { name: 'Yumthany Valley', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-OSRwFxl4OZbRcOyjEyIaGeVlu6faIWynRcu0nnXwSQ&s=10w=400&h=300&fit=crop', desc: 'A breathtaking "Valley of Flowers" in North Sikkim, famed for its vibrant rhododendron blooms, hot springs, snow-capped Himalayan peaks, and the tranquil flow of the Teesta River through its grassy, mountainous landscape', price: '₹86 per person'},
+                { name: 'Pelling', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwd0TKbhza66q4CFteUC_jibxHOuHXrRR_y3WYSH8MDw&s=10w=400&h=300&fit=crop', desc: 'A serene hill station in Sikkim known for its panoramic views of the snow-capped Kanchenjunga mountain range and historical monasteries, offering a blend of nature and culture to tourists', price: '80 per person'}
+            ],
+            'Gujarat': [
+                { name: 'Rann of kutch', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcKw7gee3ysLLjUqKKBhF-PRKnY1uiuwpzBcK_f7mbsw&s=10w=400&h=300&fit=crop', desc: 'Largest salt desert, a vast area of saline mudflats in Gujarat, India, known for its shimmering white expanse and unique salt-producing ecosystem', price: '₹100 per person'},
+                { name: 'Dwarka', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjdjNTuA5N0soBDVUjvqul95st4NSGuYMZwSQbbSBq5g&s=10w=400&h=300&fit=crop', desc: 'The legendary city in Hinduism that served as Lord Krishna"s capital and is one of the holiest pilgrimage sites for Hindus', price: '₹25 per person'},
+                { name: 'Ahmedabad', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYqNZMzAwGDf_cq5_iYfXMN8uHF25dguV3XoyusDyg7Q&s=10w=400&h=300&fit=crop', desc: 'The largest city in Gujarat, India, a UNESCO World Heritage City known for its rich history, vibrant culture, thriving textile industry, and as a center for education and business', price: '₹98 per person'},
+                { name: 'The statue of unity', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ89JVrw9CAKUMEDlmcLcH9E2beBZXqGaNKLdnLnb4QMQ&s=10w=400&h=300&fit=crop', desc: 'Sardar Vallabhbhai Patel, also known as the "Iron Man of India"', price: '₹85 per person'}
+            ],
+            'Jharkhand': [
+                { name: 'Deoghar', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlW-drCTGxTR4uAj_2i9oIgWNL7_gt_joMlfVGjAjCDg&s=10w=400&h=300&fit=crop', desc: 'A sacred Hindu pilgrimage city and the "Abode of Gods" in Jharkhand', price: '₹79 per person'},
+                { name: 'Ranchi', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj0ZeBghJ3eYFYzLupSD2x5wyjvAdaWer4h_XsbaeMcw&s=10w=400&h=300&fit=crop', desc: ' "City of Waterfalls" due to its numerous natural falls and hilly terrain on the Chota Nagpur Plateau', price: '₹87 per person'},
+                { name: 'Netarhat', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgjbGC0CMLB8qJaYBCiyiz4fezHxUQ0rnUjXGYtDZ0Gg&s=10w=400&h=300&fit=crop', desc: 'A serene hill station and an eco-tourism destination in Jharkhand, India, known as the "Queen of Chotanagpur"', price: '₹89 per person'},
+                { name: 'Betla national park', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBr2OD40EdPvUOEveHkeyrcRv5s8oEGsUK8a7y9t6FJA&s=10w=400&h=300&fit=crop', desc: ' A wildlife reserve in Jharkhand, India, named after the acronym B-E-T-L-A, which stands for Bison, Elephant, Tiger, Leopard, and Axis-axis (deer)', price: '₹86 per person'}      
+            ],
+            'Haryana': [
+                { name: 'Gurugram', image: 'https://imgs.search.brave.com/LAE-wLoZBXZmgAUn5up6Duj-beAPsO9MgSYYbhtnOxg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTIw/OTE3NjAwNy9waG90/by9hLXN3aWdneS1k/ZWxpdmVyeS1ib3kt/cmlkZXMtYS1iaWtl/LXRocm91Z2gtdGhl/LWRlc2VydGVkLXJv/YWRzLW9mLWRsZi1j/eWJlcmNpdHktaW4t/Z3VydWdyYW0tb24u/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PW5pZDJNYjVybXBO/MWdEaXdBM1UteER1/VHBNTlBqQ1VzTjFX/Z0hVUUlTRVU9?w=400&h=300&fit=crop', desc: 'A modern, affluent, corporate-centric city in India  National Capital Region, serving as a major IT and financial hub, historically known as Gurgaon and named after the mythological figure Guru Dronacharya', price: '₹70 per person'},
+                { name: 'Kurukshetra', image: 'https://imgs.search.brave.com/I40wivDaamAN8jvFXYRkyYEq2Mbzgi2NmhdRP9-m5bk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9icmFo/bWEtc2Fyb3Zhci1r/dXJ1a3NoZXRyYS1o/YXJ5YW5hLWluZGlh/LWJyYWhtYS1zYXJv/dmFyLWt1cnVrc2hl/dHJhLWhhcnlhbmEt/aW5kaWEta3Jpc2hu/YS1hcmp1bmEtYW5j/aWVudC1hcnQtcmVs/aWdpb24tcmVsaWdp/b3VzLTEzODE2NzIw/OS5qcGc?w=400&h=300&fit=crop', desc: 'A historical and sacred city and region in Haryana', price: '₹78 per person'},
+                { name: 'Panchkula', image: 'https://imgs.search.brave.com/E-iKZzMT-M_0QRQCjn0QBX4bctpmHFJYBB1xRXC8OaM/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tY3Bh/bmNoa3VsYS5pbi9p/bWFnZXMvc2xpZGUx/LmpwZw?w=400&h=300&fit=crop', desc: 'A well-planned, systematic city in Haryana, India, that functions as a satellite city of Chandigarh and is known for its greenery, modern infrastructure, and proximity to the Shivalik and Morni Hills, though its also facing urban sprawl challenges', price: '₹98 per person'},
+                { name: 'Pinjore garden', image: 'https://imgs.search.brave.com/qrAGRj2KssmER3P-2Oz57zNDrcjIT5Dy9GcqwN_7Su8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/b2Jlcm9paG90ZWxz/LmNvbS8tL21lZGlh/L29iZXJvaS1ob3Rl/bHMvd2Vic2l0ZS1p/bWFnZXMvdGhlLW9i/ZXJvaS1zdWtodmls/YXMtcmVzb3J0LWFu/ZC1zcGEtbmV3LWNo/YW5kaWdhcmgvZGVz/dGluYXRpb24vZGV0/YWlsZWQvcGluam9y/ZS1nYXJkZW4tNzI0/LXgtNDI2LmpwZz93/PTcyNCZoYXNoPTA2/M2U4MzBjMzA5ZWNh/ZGI4NzRmYmYxODIx/NTZiZTkw?w=400&h=300&fit=crop', desc: 'A 17th-century Mughal-style terraced garden in Haryana, India, featuring symmetrical layouts, fountains, and grand palaces like the Shish Mahal and Jal Mahal, renovated by the Patiala Dynasty Sikh rulers after its creation by Aurangzeb foster-brother, Fidai Khan', price: '₹96 per person'},
+                { name: 'Panipat', image: 'https://imgs.search.brave.com/EwNP1otpemJ50VfuP23gMUfts5wNYS47rv_obLrFj1s/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzU0L2Ji/LzlkLzU0YmI5ZDc3/NGJmMDMyODAxNmY0/YzFiOTczYjFiN2M4/LmpwZw?w=400&h=300&fit=crop', desc: 'A historic city in Haryana, City of Weavers, for its textile industry and the global center for recycling textiles, and as the location of three pivotal battles in Indian history, including the 1526 First Battle of Panipat that marked the beginning of the Mughal Empire', price: '₹76 per person'}
+            ],
+            'Bihar': [
+                { name: 'Bodh gaya', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHKgEAvsJ7Xo7nEYCkyBOUxZ6KWQG8kWY3QLSKj2IVsA&s=10w=400&h=300&fit=crop', desc: 'A sacred town in Bihar, India, renowned as the site where Siddhartha Gautama attained enlightenment to become the Buddha', price: '87 per person'},
+                { name: 'Rajgir', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEwrbxTV1oJLL45tIMXZR1YiLzPlnsSg3RL6yAmIp56A&s=10w=400&h=300&fit=crop', desc: '"City of Kings," which served as the first capital of the Magadha kingdom and was a significant center for both Buddhism and Jainism, famous for its historic forts, caves, hot springs, and temples', price: '₹75 per person'},
+                { name: 'Sasaram', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ7UrACj5p6yM4xhgzvu4svBOjJm5GzXosoJaOfAxgtA&s=10w=400&h=300&fit=crop', desc: 'Birthplace of Sher Shah Suri and the location of his magnificent tomb', price: '₹69 per person'}
+            ],
+            'Punjab': [
+                { name: 'Golden Temple', image: 'https://plus.unsplash.com/premium_photo-1697730331435-92e07494db43?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z29sZGVuJTIwdGVtcGxlfGVufDB8fDB8fHww?w=400&h=300&fit=crop', desc: 'Holiest Sikh shrine with golden architecture', price: '₹87 per person'},
+                { name: 'Jallianwala Bagh', image: 'https://plus.unsplash.com/premium_photo-1697729441943-f1bffee0b432?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=400&h=300&fit=crop', desc: 'Memorial of tragic massacre in Indian history', price: '₹76 per person'},
+                { name: 'Wagah Border', image: 'https://images.unsplash.com/photo-1598431416007-869a2a727f8b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2FnYWglMjBib3JkZXJ8ZW58MHx8MHx8fDA%3D?w=400&h=300&fit=crop', desc: 'Famous border ceremony between India and Pakistan', price: '₹88 per person'}
+            ],
+            'Jammu & Kashmir': [
+                { name: 'Srinagar', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop', desc: 'The summer capital of the Indian-administered union territory of Jammu and Kashmir, located in the picturesque Kashmir Valley', price: '₹87 per person'},
+                { name: 'Pahalgam', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO6yzjaQmNH7O5UyfG1jAdV08-1i5-E_J4Rrss6D9j0A&s=10w=400&h=300&fit=crop', desc: 'A scenic health resort in the Anantnag district of Jammu and Kashmir, known for its lush meadows, pine forests, and the Lidder River', price: '₹98 per person'},
+                { name: 'Vanishno devi mandir', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPQRj54GTlqi_w6n3nu2sJTWHkfj-CzLv4fioDfP9ddw&s=10w=400&h=300&fit=crop', desc: 'A prominent Hindu pilgrimage site located in the Trikuta Hills of Jammu and Kashmir, dedicated to Mata Vaishno Devi, a manifestation of the Divine Mother', price: '₹87 per person'}
+            ],
+            'Chhattisgarh': [
+                { name: 'Chitrakote falls', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIzLlANkgMefxhFIVPDOFq3l-kLYS4ZwwIJA5K32zuNA&s=10w=400&h=300&fit=crop', desc: ' India, is known as the "Niagara of India" for being the widest waterfall, especially during the monsoon season from July to October, when it can reach up to 300 meters in width', price: '₹88 per person'},
+                { name: 'Sirpur', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6r3jnw2-MoTtSLXkqIT-MlRuKEhx4Up8BiuVQMANC0qh0s3ME1bcCsTU&s=10w=400&h=300&fit=crop', desc: 'An ancient archaeological site and city, known as Shripur in ancient times, located in Chhattisgarh, India, that served as the capital of the Panduvanshi dynasty', price: '₹98 per person'},
+                { name: 'Danteshwari temple', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8B5LjGcP23R0FRWgDrJauChU44JJRRc0uMDFciV2UFTwkwngZfLAXLaCk&s=10w=400&h=300&fit=crop', desc: 'A 14th-century Hindu temple dedicated to Goddess Danteshwari, an incarnation of Goddess Shakti', price: '₹87 per person'},
+                { name: 'Bhoramdeo temple', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPOYAsacJ3JHlM04UV8lDFHz1HBqxjkqqQ2LXJpbapCw&s=10w=400&h=300&fit=crop', desc: 'An ancient and intricate Hindu temple complex in Chhattisgarh, India, dating primarily to the 11th-12th centuries, known as the "Khajuraho of Chhattisgarh" for its architectural style and erotic sculptures', price: '₹78 per person'}
+            ],
+            'Rajasthan': [
+                { name: 'Jaipur City Palace', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnO0P8FyYsEfkLAtsd3pUcH1Kn4hXO9yNhvNA_jJqHNg&s=10w=400&h=300&fit=crop', desc: 'Royal residence with stunning architecture', price: '₹89 per person'},
+                { name: 'Udaipur Lake Palace', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt1nzYtMfIkXgwkoRPq8TX2O5aEhzKJcYp-NS2qaKiDg&s=10w=400&h=300&fit=crop', desc: 'Floating palace on Lake Pichola', price: '₹90 per person'},
+                { name: 'Jaisalmer Fort', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFL2eqJIVSU_8d3Zy5laSGYrnzS8nTcc6L3EEcKKoxtw&s=10w=400&h=300&fit=crop', desc: 'Golden fort in the Thar Desert', price: '₹80 per person'},
+                { name: 'Pushkar Lake', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOj86ePnzBTOZ1axru8HiQkiYYdWZMAXQnHumUxj7f9Q&s=10w=400&h=300&fit=crop', desc: 'Sacred lake with ancient temples', price: '₹87 per person'}
+            ],
+            'Uttar Pradesh': [
+                { name: 'Taj Mahal', image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=400&h=300&fit=crop', desc: 'Symbol of love and UNESCO World Heritage site', price: '₹88 per person'},
+                { name: 'Agra Fort', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjNzvE62Zv6MGspPuYZu7gh6wZPQaFX5fD0pi6uwTJ4Q&s=10w=400&h=300&fit=crop', desc: 'Mughal fort and UNESCO World Heritage site', price: '₹98 per person'},
+                { name: 'Fatehpur Sikri', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRApQ7zUEFs2q82PZCm5Hz99m7AXuqWslCULT5D6SPiOg&s=10w=400&h=300&fit=crop', desc: 'Abandoned Mughal city with stunning architecture', price: '₹87 per person'},
+                { name: 'Varanasi Ghats', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfpdr2oPDFquk3Uz_SYYw4iMAgiKeiIK2KzEfOZWW4LA&s=10w=400&h=300&fit=crop', desc: 'Sacred ghats on the banks of river Ganges', price: '₹78 per person'}
+            ],
+            'Kerala': [
+                { name: 'Alleppey Backwaters', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkRgDiIiDskXcYqzEB7Ddj1RNPziaUHcDtFcGxn9IYLw&s=10w=400&h=300&fit=crop', desc: 'Network of canals and lagoons', price: '₹76 per person'},
+                { name: 'Munnar Tea Gardens', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgtjrnQlx3D8Dn9UTZT5eISYHNyi0kQVYtsBIFZyTpSQ&s=10w=400&h=300&fit=crop', desc: 'Rolling hills covered with tea plantations', price: '₹98 per person'},
+                { name: 'Kochi Fort', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2eCX7aOEu7HZe2t1VOqfzA3dVwO1sTCeGOH79o26ogg&s=10w=400&h=300&fit=crop', desc: 'Colonial heritage and Chinese fishing nets', price: '₹87 per person'}
+            ],
+            'Andhra Pradesh': [
+                { name: 'Tirupati', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-QX3TIe8aMMZpW7PenAIQFaFf6PlKoUy2QOCzo48N9g&s=10w=400&h=300&fit=crop', desc: 'A city in Andhra Pradesh, India, renowned for the Tirumala Venkateswara Temple, a major Hindu pilgrimage site and one of the wealthiest temples', price: '₹69 per person'},
+                { name: 'Araku Valley', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwBegYcbjSvtGKFazTL3JBF9DlCoOut-q539KK_hEoFw&s=10w=400&h=300&fit=crop', desc: 'A scenic hill station in Andhra Pradesh, India, known for its lush coffee plantations, waterfalls, tribal culture, and picturesque landscapes in the Eastern Ghats', price: '₹85 person'},
+                { name: 'Visakhapatanam', image:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGmK_OmZ_KlEzLjLQQYvIcbOFqLA3FDckEcXUuCRY16A&s=10w=400&h=300&fit=crop', desc: 'major Indian port and industrial city on the Bay of Bengal in Andhra Pradesh', price: '₹97 per person'},
+                { name: 'Srisailam', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzX2EdfKDDN9XY2E23klIan8o9zkmQz8y_hgjmfvA3ANKi3Sgq8YGhoS20&s=10w=400&h=300&fit=crop', desc: 'A holy temple town in Andhra Pradesh, India, known for the Sri Bhramaramba Mallikarjuna Swamy Temple—one of the 12 Jyotirlingas—and is situated in the Nallamala Hills on the banks of the Krishna River', price: '₹84 per person'}
+            ],
+            'Tamil Nadu': [
+                { name: 'Meenakshi Temple', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCf6xg3m0ipzKM2eRGfeoihanyDp2vPoEEfvYDpeZP5g&s=10w=400&h=300&fit=crop', desc: 'Magnificent Dravidian architecture in Madurai', price: '₹65 per person'},
+                { name: 'Mahabalipuram', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkRch4ncW00JGUWXYKuNEdqGv5c-1PRRHSSh6N7QLUsw&s=10w=400&h=300&fit=crop', desc: 'Ancient rock-cut temples by the sea', price: '₹93 per person'},
+                { name: 'Ooty Hill Station', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5DYeJ62IMc6CP6562PhRZv0AVRsmi0PN1-p-QoJvIAA&s=10w=400&h=300&fit=crop', desc: 'Queen of hill stations with toy train', price: '₹97 per person'}
+            ],
+            'West Bengal': [
+                { name: 'Victoria Memorial', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjXjczb66HmDnncbxChxG10qnLfap3FK3evSFujiESqw&s=10w=400&h=300&fit=crop', desc: 'British colonial architecture in Kolkata', price: '₹87 per person'},
+                { name: 'Sundarbans', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAJU18xMPNze6B4mgA2lsFMFW_ipmG9oHN_t7H96nYalBhzoWPHSCPXWc&s=10w=400&h=300&fit=crop', desc: 'Mangrove forests and Royal Bengal tigers', price: '₹100 per person'},
+                { name: 'Darjeeling', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoN5PMuWk32y4pFxf_6mDncOEE-7ATh7bdUYg2jYVNsA&s=10w=400&h=300&fit=crop', desc: 'Tea gardens and Himalayan railway', price: '₹68 per person'}
+            ],
+            'Maharashtra': [
+                { name: 'Gateway of India', image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=400&h=300&fit=crop', desc: 'Iconic monument overlooking Arabian Sea', price: '₹98 per person'},
+                { name: 'Ajanta Caves', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgmR2T169c0wJG4yYD9_0Y-ng5VAxwywv8clIonzyNAQ&s=10w=400&h=300&fit=crop', desc: 'Ancient Buddhist rock-cut caves', price: '₹96 per person'},
+                { name: 'Lonavala', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL4X_WoehkHgrQ7DDZA341kuHcPlEQ-8Obfqas8xN7Rg&s=10w=400&h=300&fit=crop', desc: 'Hill station with scenic valleys', price: '₹96 per person'}
+            ],
+            'Goa': [
+                { name: 'North Goa Beaches', image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=400&h=300&fit=crop', desc: 'Popular beaches with water sports and nightlife', price: '₹85 per person'},
+                { name: 'Old Goa Churches', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlRrTggGhLwKNbcNyLBqfXd7hX3KeJkYKoVN6yMLBnGA&s=10w=400&h=300&fit=crop', desc: 'Portuguese colonial religious architecture', price: '₹86 per person'},
+                { name: 'South Goa', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTMj6hkSPw5xKEdAb51MWeAFT0_WVRnb4yGzGLBC8oMg&s=10w=400&h=300&fit=crop', desc: 'Peaceful beaches and Portuguese heritage', price: '₹85 per person'}
+            ],
+            'Himachal Pradesh': [
+                { name: 'Shimla', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJzWsQ5yevcVuWsWWrgabdzxadAtgF1qIn5Bo3LM5lvQ&s=10w=400&h=300&fit=crop', desc: 'Colonial hill station and summer capital', price: '₹76 per person'},
+                { name: 'Manali', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRR6G120yMqhqYbtOrZTXo7vlD9QlUy7OObAiW9uWL4g&s=10w=400&h=300&fit=crop', desc: 'Adventure sports and honeymoon destination', price: '₹75 per person'},
+                { name: 'Dharamshala', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZHXjTPAe9UY54zFig2L9o6009tRHwRs7ty22Y2nKzqQ&s=10w=400&h=300&fit=crop', desc: 'Home of Dalai Lama and Tibetan culture', price: '₹85 per person'}
+            ],
+            'Uttarakhand': [
+                { name: 'Rishikesh', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFA48sVHRRqLJDWHN37zXDBwy7M6vDdFTYcBTqgi_vA&s=10w=400&h=300&fit=crop', desc: 'Yoga capital and adventure sports hub', price: '₹95 per person'},
+                { name: 'Nainital', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop', desc: 'Lake district with scenic beauty', price: '₹67 per person'},
+                { name: 'Valley of Flowers', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjeuTV_2OGqyH_v_n9cGTlWguCaKjyI-KzXNtgsXVM_A&s=10w=400&h=300&fit=crop', desc: 'UNESCO site with alpine flowers', price: '₹91 per person'}
+            ],
+            'Assam': [
+                { name: 'Kaziranga National Park', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqWXGfNz3QYi45h3VCT962xAbbGmdWPlFTxoe5L-oG7uD0yvthv93gjVPH&s=10w=400&h=300&fit=crop', desc: 'Home to one-horned rhinoceros', price: '₹100 per person'},
+                { name: 'Majuli Island', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3TfREGvBl4We0EnyRGLgkUS3b6FXdW1cND6nnMCcW3Q&s=10w=400&h=300&fit=crop', desc: 'Worlds largest river island', price: '₹76 per person'},
+                { name: 'Guwahati', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDPFCah_IjJS9jBPXdU0LbpxtHSkFlpqpMmyi7s0f0Hg&s=10w=400&h=300&fit=crop', desc: 'Gateway to Northeast India', price: '₹81 per person'}
+            ],
+            'Telangana': [
+                { name: 'Charminar', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw7IMfoR27tGQtO9BmvYSRArQxwCkx-cCU-QFkWbgPsw&s=10w=400&h=300&fit=crop', desc: 'A historic square-shaped monument with four ornate minarets (towers) and arches', price: '₹91 per person'},
+                { name: 'Birla mandir', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_b9YzmT96xeKsKYPkOMs62hZAlQJwvcg7Aw6FN0fJdQ&s=10w=400&h=300&fit=crop', desc: 'Family of beautiful, modern Hindu temples built by the wealthy Birla family across India, often from white marble, and dedicated to various deities like Lakshmi Narayan, Vishnu, or Venkateswara.', price: '₹96 per person'},
+                { name: 'Makkah masjid', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYh7a09KPAsR-kLOK2K2RF9-6UofQdo07I5Rq-4TkHikB96rnIVpOZQ3c&s=10w=400&h=300&fit=crop', desc: 'Large, historic congregational mosque in Hyderabad, India, built with bricks from the holy city of Mecca, serving as a central place of worship for the Old City', price: '₹87 per person'}
+            ],
+            'Karnataka': [
+                { name: 'Hampi', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcJMdqj4QmeYsO3GhdqPAg_vNWVd-troNVTau3BSmPNg&s=10w=400&h=300&fit=crop', desc: 'A UNESCO World Heritage site in Karnataka, India, known for the stunning ruins of the Vijayanagara Empires capital city, featuring magnificent temples, palaces, and market streets set amidst a landscape of giant granite boulders', price: '₹100 per person'},
+                { name: 'Mysore', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEFO02VIWSdFFjm5aaqlk7NLT7yfBd0asfMNHd-T1yQ&s=10w=400&h=300&fit=crop', desc: 'An Indian city in Karnataka known as the "City of Palaces" and the "Cultural Capital of Karnataka," famous for its grand heritage structures, vibrant culture, and the iconic Mysore Palace', price: '₹83 per person'},
+                { name: 'Bangalore', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2VlfVaDuMVTn_5a87QoUL2ritGycoq8iNGnLWRMETcQ&s=10w=400&h=300&fit=crop', desc: 'The capital of Indias Karnataka state, a major IT hub known as the Silicon Valley of India and the Garden City, featuring a significant cosmopolitan population, diverse industries, pleasant weather, and a rich cultural mix', price: '86 per person'}
+            ],
+            'Madhya Pradesh': [
+                { name: 'Khajuraho', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdJNsrxRNl5O2dfhsMHHqMneNN-_7WFOk05Pqf6e9mmA&s=10w=400&h=300&fit=crop', desc: 'UNESCO World Heritage erotic sculptures', price: '₹80 per person'},
+                { name: 'Bandhavgarh National Park', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiyapmJGRkFhQOOowDPh6XzhARxAMWEu-aEuHcMm6wQQ&s=10w=400&h=300&fit=crop', desc: 'Tiger reserve with high density', price: '₹99 per person'},
+                { name: 'Sanchi', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0iayQ6Q8ZFX9Z_RrlunMV2CSX4vy6i6UKVEsuykJRtA&s=10w=400&h=300&fit=crop', desc: 'Ancient Buddhist monument', price: '₹90 per person'}
+            ]
+        };
+
+        // Complete language translations for all 15 languages
+        const translations = {
+            en: {
+                siteTitle: "GlobalTripGuide",
+                heroTitle: "Discover Incredible India",
+                heroSubtitle: "Experience the magic of India with our expert local guides. From the majestic Himalayas to tropical beaches, explore diverse cultures, cuisines, and landscapes.",
+                startJourney: "Start Your Journey",
+                chooseRegion: "Choose Your Zone",
+                northIndia: "Northern Zone",
+                eastIndia: "Eastern Zone",
+                westIndia: "Western Zone",
+                southIndia: "Southern Zone",
+                centralIndia: "Central Zone",
+                northeastIndia: "Northeastern Zone",
+                northDesc: "Explore the majestic Himalayas, historic Delhi, and cultural treasures",
+                eastDesc: "Discover rich heritage, tea gardens, and vibrant festivals",
+                westDesc: "Experience royal palaces, deserts, and bustling cities",
+                southDesc: "Enjoy tropical beaches, ancient temples, and spicy cuisine",
+                centralDesc: "Discover ancient temples, wildlife sanctuaries, and tribal culture",
+                northeastDesc: "Experience pristine nature, unique cultures, and breathtaking landscapes",
+                backToRegions: "← Back to Zones",
+                backToStates: "← Back to States",
+                backToHome: "← Back to Home",
+                bookTour: "Book Your Tour",
+                personalInfo: "Personal Information",
+                professionalInfo: "Professional Information",
+                locationInfo: "Location Information",
+                fullName: "Full Name",
+                emailAddress: "Email Address",
+                phoneNumber: "Phone Number",
+                countryState: "Country/State",
+                age: "Age",
+                experience: "Years of Experience",
+                specialization: "Specialization Area",
+                languages: "Languages Spoken",
+                certification: "Certifications",
+                state: "State",
+                city: "City",
+                serviceAreas: "Service Areas",
+                availability: "Availability",
+                cancel: "Cancel",
+                bookNow: "Book Now",
+                register: "Register",
+                guidePortal: "Guide Portal",
+                guideLogin: "Guide Login",
+                guideRegistration: "Guide Registration",
+                username: "Username",
+                password: "Password",
+                login: "Login",
+                registerAsGuide: "Register as New Guide",
+                touristPlaces: "Tourist Places",
+                customerLogin: "Customer Login",
+                customerRegistration: "Customer Registration",
+                country: "Country",
+                travelingWith: "Traveling With",
+                family: "Family",
+                friends: "Friends",
+                solo: "Solo",
+                travelInfo: "Travel Information",
+                numberOfPeople: "Number of People",
+                touristPlace: "Tourist Place",
+                numberOfPlaces: "Number of Tourist Places to Visit",
+                travelDays: "Number of Days",
+                cityToVisit: "City to Visit",
+                contactPreference: "How would you like us to contact you?",
+                call: "Call",
+                message: "Message",
+                dateOfBirth: "Date of Birth",
+                address: "Full Address",
+                gender: "Gender",
+                male: "Male",
+                female: "Female",
+                emergencyContact: "Emergency Contact Information",
+                emergencyContactName: "Emergency Contact Name",
+                relation: "Relation",
+                emergencyPhoneNumber: "Emergency Phone Number",
+                yearsOfExperience: "Years of Experience",
+                languagesSpoken: "Languages Spoken",
+                tourLocation: "Tourist Tour Location",
+                verificationDetails: "Verification Details",
+                governmentId: "Government ID Number",
+                licenseNumber: "License Number",
+                documentsUpload: "Documents Upload",
+                uploadId: "Upload Government ID",
+                uploadCertificate: "Upload Certificate",
+                uploadProfilePhoto: "Upload Profile Photo",
+                addFile: "Add File",
+                addPhoto: "Add Photo",
+                selectPlacesToVisit: "Select Places to Visit",
+                selectedPlaces: "Selected Places:",
+                noPlacesSelected: "No places selected yet",
+                backToPlaces: "← Back to Places"
+            },
+            hi: {
+                siteTitle: "ग्लोबल ट्रिप गाइड",
+                heroTitle: "अविश्वसनीय भारत की खोज करें",
+                heroSubtitle: "हमारे विशेषज्ञ स्थानीय गाइडों के साथ भारत के जादू का अनुभव करें। राजसी हिमालय से लेकर उष्णकटिबंधीय समुद्र तटों तक, विविध संस्कृतियों, व्यंजनों और परिदृश्यों का अन्वेषण करें।",
+                startJourney: "अपनी यात्रा शुरू करें",
+                chooseRegion: "अपना क्षेत्र चुनें",
+                northIndia: "उत्तरी क्षेत्र",
+                eastIndia: "पूर्वी क्षेत्र",
+                westIndia: "पश्चिमी क्षेत्र",
+                southIndia: "दक्षिणी क्षेत्र",
+                centralIndia: "मध्य क्षेत्र",
+                northeastIndia: "पूर्वोत्तर क्षेत्र",
+                northDesc: "राजसी हिमालय, ऐतिहासिक दिल्ली और सांस्कृतिक खजानों का अन्वेषण करें",
+                eastDesc: "समृद्ध विरासत, चाय बागानों और जीवंत त्योहारों की खोज करें",
+                westDesc: "शाही महलों, रेगिस्तानों और हलचल भरे शहरों का अनुभव करें",
+                southDesc: "उष्णकटिबंधीय समुद्र तटों, प्राचीन मंदिरों और मसालेदार व्यंजनों का आनंद लें",
+                centralDesc: "प्राचीन मंदिरों, वन्यजीव अभयारण्यों और आदिवासी संस्कृति की खोज करें",
+                northeastDesc: "प्राकृतिक प्रकृति, अनूठी संस्कृतियों और मनमोहक परिदृश्यों का अनुभव करें",
+                backToRegions: "← क्षेत्रों पर वापस जाएं",
+                backToStates: "← राज्यों पर वापस जाएं",
+                backToHome: "← होम पर वापस जाएं",
+                bookTour: "अपना टूर बुक करें",
+                personalInfo: "व्यक्तिगत जानकारी",
+                professionalInfo: "व्यावसायिक जानकारी",
+                locationInfo: "स्थान की जानकारी",
+                fullName: "पूरा नाम",
+                emailAddress: "ईमेल पता",
+                phoneNumber: "फोन नंबर",
+                countryState: "देश/राज्य",
+                age: "आयु",
+                experience: "अनुभव के वर्ष",
+                specialization: "विशेषज्ञता क्षेत्र",
+                languages: "बोली जाने वाली भाषाएं",
+                certification: "प्रमाणपत्र",
+                state: "राज्य",
+                city: "शहर",
+                serviceAreas: "सेवा क्षेत्र",
+                availability: "उपलब्धता",
+                cancel: "रद्द करें",
+                bookNow: "अभी बुक करें",
+                register: "पंजीकरण करें",
+                guidePortal: "गाइड पोर्टल",
+                guideLogin: "गाइड लॉगिन",
+                guideRegistration: "गाइड पंजीकरण",
+                username: "उपयोगकर्ता नाम",
+                password: "पासवर्ड",
+                login: "लॉगिन",
+                registerAsGuide: "नए गाइड के रूप में पंजीकरण करें",
+                touristPlaces: "पर्यटन स्थल",
+                customerLogin: "ग्राहक लॉगिन",
+                customerRegistration: "ग्राहक पंजीकरण",
+                registerAsCustomer: "नए ग्राहक के रूप में पंजीकरण करें",
+                country: "देश",
+                travelingWith: "किसके साथ यात्रा कर रहे हैं",
+                family: "परिवार",
+                friends: "दोस्त",
+                solo: "अकेले",
+                travelInfo: "यात्रा की जानकारी",
+                numberOfPeople: "लोगों की संख्या",
+                touristPlace: "पर्यटन स्थल",
+                numberOfPlaces: "घूमने वाले पर्यटन स्थलों की संख्या",
+                travelDays: "दिनों की संख्या",
+                cityToVisit: "घूमने वाला शहर",
+                contactPreference: "आप हमसे कैसे संपर्क करना चाहेंगे?",
+                call: "कॉल",
+                message: "संदेश",
+                dateOfBirth: "जन्म तिथि",
+                address: "पूरा पता",
+                gender: "लिंग",
+                male: "पुरुष",
+                female: "महिला",
+                emergencyContact: "आपातकालीन संपर्क जानकारी",
+                emergencyContactName: "आपातकालीन संपर्क नाम",
+                relation: "रिश्ता",
+                emergencyPhoneNumber: "आपातकालीन फोन नंबर",
+                yearsOfExperience: "अनुभव के वर्ष",
+                languagesSpoken: "बोली जाने वाली भाषाएं",
+                tourLocation: "पर्यटन स्थल",
+                verificationDetails: "सत्यापन विवरण",
+                governmentId: "सरकारी आईडी नंबर",
+                licenseNumber: "लाइसेंस नंबर",
+                documentsUpload: "दस्तावेज़ अपलोड",
+                uploadId: "सरकारी आईडी अपलोड करें",
+                uploadCertificate: "प्रमाणपत्र अपलोड करें",
+                uploadProfilePhoto: "प्रोफाइल फोटो अपलोड करें",
+                addFile: "फाइल जोड़ें",
+                addPhoto: "फोटो जोड़ें",
+                selectPlacesToVisit: "घूमने के लिए स्थान चुनें",
+                selectedPlaces: "चुने गए स्थान:",
+                noPlacesSelected: "अभी तक कोई स्थान नहीं चुना गया",
+                backToPlaces: "← स्थानों पर वापस जाएं"
+            },
+            es: {
+                siteTitle: "Guía Global de Viajes",
+                heroTitle: "Descubre la Increíble India",
+                heroSubtitle: "Experimenta la magia de India con nuestros guías locales expertos. Desde los majestuosos Himalayas hasta playas tropicales, explora diversas culturas, cocinas y paisajes.",
+                startJourney: "Comienza tu Viaje",
+                chooseRegion: "Elige tu Zona",
+                northIndia: "Zona Norte",
+                eastIndia: "Zona Este",
+                westIndia: "Zona Oeste",
+                southIndia: "Zona Sur",
+                centralIndia: "Zona Central",
+                northeastIndia: "Zona Noreste",
+                northDesc: "Explora los majestuosos Himalayas, Delhi histórico y tesoros culturales",
+                eastDesc: "Descubre rica herencia, plantaciones de té y festivales vibrantes",
+                westDesc: "Experimenta palacios reales, desiertos y ciudades bulliciosas",
+                southDesc: "Disfruta playas tropicales, templos antiguos y cocina picante",
+                centralDesc: "Descubre templos antiguos, santuarios de vida silvestre y cultura tribal",
+                northeastDesc: "Experimenta naturaleza prístina, culturas únicas y paisajes impresionantes",
+                backToRegions: "← Volver a Zonas",
+                backToStates: "← Volver a Estados",
+                backToHome: "← Volver al Inicio",
+                bookTour: "Reserva tu Tour",
+                personalInfo: "Información Personal",
+                professionalInfo: "Información Profesional",
+                locationInfo: "Información de Ubicación",
+                fullName: "Nombre Completo",
+                emailAddress: "Dirección de Email",
+                phoneNumber: "Número de Teléfono",
+                countryState: "País/Estado",
+                age: "Edad",
+                experience: "Años de Experiencia",
+                specialization: "Área de Especialización",
+                languages: "Idiomas Hablados",
+                certification: "Certificaciones",
+                state: "Estado",
+                city: "Ciudad",
+                serviceAreas: "Áreas de Servicio",
+                availability: "Disponibilidad",
+                cancel: "Cancelar",
+                bookNow: "Reservar Ahora",
+                register: "Registrarse",
+                guidePortal: "Portal de Guías",
+                guideLogin: "Inicio de Sesión de Guía",
+                guideRegistration: "Registro de Guía",
+                username: "Nombre de Usuario",
+                password: "Contraseña",
+                login: "Iniciar Sesión",
+                registerAsGuide: "Registrarse como Nuevo Guía",
+                touristPlaces: "Lugares Turísticos",
+                customerLogin: "Inicio de sesión de cliente"
+            },
+            fr: {
+                siteTitle: "Guide de Voyage Global",
+                heroTitle: "Découvrez l'Inde Incroyable",
+                heroSubtitle: "Découvrez la magie de l'Inde avec nos guides locaux experts. Des majestueuses Himalayas aux plages tropicales, explorez diverses cultures, cuisines et paysages.",
+                startJourney: "Commencez votre Voyage",
+                chooseRegion: "Choisissez votre Zone",
+                northIndia: "Zone Nord",
+                eastIndia: "Zone Est",
+                westIndia: "Zone Ouest",
+                southIndia: "Zone Sud",
+                centralIndia: "Zone Centrale",
+                northeastIndia: "Zone Nord-Est",
+                northDesc: "Explorez les majestueuses Himalayas, Delhi historique et trésors culturels",
+                eastDesc: "Découvrez un riche patrimoine, des plantations de thé et des festivals vibrants",
+                westDesc: "Découvrez des palais royaux, des déserts et des villes animées",
+                southDesc: "Profitez des plages tropicales, des temples anciens et de la cuisine épicée",
+                centralDesc: "Découvrez des temples anciens, des sanctuaires de faune et la culture tribale",
+                northeastDesc: "Découvrez une nature pristine, des cultures uniques et des paysages à couper le souffle",
+                backToRegions: "← Retour aux Zones",
+                backToStates: "← Retour aux États",
+                backToHome: "← Retour à l'Accueil",
+                bookTour: "Réservez votre Tour",
+                personalInfo: "Informations Personnelles",
+                professionalInfo: "Informations Professionnelles",
+                locationInfo: "Informations de Localisation",
+                fullName: "Nom Complet",
+                emailAddress: "Adresse Email",
+                phoneNumber: "Numéro de Téléphone",
+                countryState: "Pays/État",
+                age: "Âge",
+                experience: "Années d'Expérience",
+                specialization: "Domaine de Spécialisation",
+                languages: "Langues Parlées",
+                certification: "Certifications",
+                state: "État",
+                city: "Ville",
+                serviceAreas: "Zones de Service",
+                availability: "Disponibilité",
+                cancel: "Annuler",
+                bookNow: "Réserver Maintenant",
+                register: "S'inscrire",
+                guidePortal: "Portail des Guides",
+                guideLogin: "Connexion Guide",
+                guideRegistration: "Inscription Guide",
+                username: "Nom d'Utilisateur",
+                password: "Mot de Passe",
+                login: "Se Connecter",
+                registerAsGuide: "S'inscrire comme Nouveau Guide",
+                touristPlaces: "Lieux Touristiques",
+                customerLogin: "Connexion client"
+            },
+            de: {
+                siteTitle: "Globaler Reiseführer",
+                heroTitle: "Entdecke das Unglaubliche Indien",
+                heroSubtitle: "Erlebe die Magie Indiens mit unseren erfahrenen lokalen Führern. Von den majestätischen Himalayas bis zu tropischen Stränden, erkunde vielfältige Kulturen, Küchen und Landschaften.",
+                startJourney: "Beginne deine Reise",
+                chooseRegion: "Wähle deine Zone",
+                northIndia: "Nordzone",
+                eastIndia: "Ostzone",
+                westIndia: "Westzone",
+                southIndia: "Südzone",
+                centralIndia: "Zentralzone",
+                northeastIndia: "Nordostzone",
+                northDesc: "Erkunde die majestätischen Himalayas, historisches Delhi und kulturelle Schätze",
+                eastDesc: "Entdecke reiches Erbe, Teeplantagen und lebendige Festivals",
+                westDesc: "Erlebe königliche Paläste, Wüsten und geschäftige Städte",
+                southDesc: "Genieße tropische Strände, alte Tempel und würzige Küche",
+                centralDesc: "Entdecke alte Tempel, Wildschutzgebiete und Stammeskultur",
+                northeastDesc: "Erlebe unberührte Natur, einzigartige Kulturen und atemberaubende Landschaften",
+                backToRegions: "← Zurück zu Zonen",
+                backToStates: "← Zurück zu Staaten",
+                backToHome: "← Zurück zur Startseite",
+                bookTour: "Buche deine Tour",
+                personalInfo: "Persönliche Informationen",
+                professionalInfo: "Berufliche Informationen",
+                locationInfo: "Standortinformationen",
+                fullName: "Vollständiger Name",
+                emailAddress: "E-Mail-Adresse",
+                phoneNumber: "Telefonnummer",
+                countryState: "Land/Staat",
+                age: "Alter",
+                experience: "Jahre der Erfahrung",
+                specialization: "Spezialisierungsbereich",
+                languages: "Gesprochene Sprachen",
+                certification: "Zertifizierungen",
+                state: "Staat",
+                city: "Stadt",
+                serviceAreas: "Servicebereiche",
+                availability: "Verfügbarkeit",
+                cancel: "Abbrechen",
+                bookNow: "Jetzt buchen",
+                register: "Registrieren",
+                guidePortal: "Führer-Portal",
+                guideLogin: "Führer-Anmeldung",
+                guideRegistration: "Führer-Registrierung",
+                username: "Benutzername",
+                password: "Passwort",
+                login: "Anmelden",
+                registerAsGuide: "Als neuer Führer registrieren",
+                touristPlaces: "Touristische Orte",
+                customerLogin: "Kundenlogin"
+            },
+            ja: {
+                siteTitle: "グローバル旅行ガイド",
+                heroTitle: "信じられないインドを発見",
+                heroSubtitle: "専門の地元ガイドと一緒にインドの魔法を体験してください。雄大なヒマラヤから熱帯のビーチまで、多様な文化、料理、風景を探索してください。",
+                startJourney: "旅を始める",
+                chooseRegion: "ゾーンを選択",
+                northIndia: "北部ゾーン",
+                eastIndia: "東部ゾーン",
+                westIndia: "西部ゾーン",
+                southIndia: "南部ゾーン",
+                centralIndia: "中央ゾーン",
+                northeastIndia: "北東ゾーン",
+                northDesc: "雄大なヒマラヤ、歴史的なデリー、文化的宝物を探索",
+                eastDesc: "豊かな遺産、茶園、活気あるフェスティバルを発見",
+                westDesc: "王宮、砂漠、賑やかな都市を体験",
+                southDesc: "熱帯のビーチ、古代寺院、スパイシーな料理を楽しむ",
+                centralDesc: "古代寺院、野生動物保護区、部族文化を発見",
+                northeastDesc: "手つかずの自然、独特の文化、息をのむような風景を体験",
+                backToRegions: "← ゾーンに戻る",
+                backToStates: "← 州に戻る",
+                backToHome: "← ホームに戻る",
+                bookTour: "ツアーを予約",
+                personalInfo: "個人情報",
+                professionalInfo: "職業情報",
+                locationInfo: "場所情報",
+                fullName: "フルネーム",
+                emailAddress: "メールアドレス",
+                phoneNumber: "電話番号",
+                countryState: "国/州",
+                age: "年齢",
+                experience: "経験年数",
+                specialization: "専門分野",
+                languages: "話せる言語",
+                certification: "資格",
+                state: "州",
+                city: "市",
+                serviceAreas: "サービスエリア",
+                availability: "利用可能性",
+                cancel: "キャンセル",
+                bookNow: "今すぐ予約",
+                register: "登録",
+                guidePortal: "ガイドポータル",
+                guideLogin: "ガイドログイン",
+                guideRegistration: "ガイド登録",
+                username: "ユーザー名",
+                password: "パスワード",
+                login: "ログイン",
+                registerAsGuide: "新しいガイドとして登録",
+                touristPlaces: "観光地",
+                customerLogin: "顧客ログイン"
+            },
+            zh: {
+                siteTitle: "全球旅行指南",
+                heroTitle: "发现不可思议的印度",
+                heroSubtitle: "与我们专业的当地导游一起体验印度的魔力。从雄伟的喜马拉雅山到热带海滩，探索多样的文化、美食和风景。",
+                startJourney: "开始您的旅程",
+                chooseRegion: "选择您的区域",
+                northIndia: "北部区域",
+                eastIndia: "东部区域",
+                westIndia: "西部区域",
+                southIndia: "南部区域",
+                centralIndia: "中部区域",
+                northeastIndia: "东北区域",
+                northDesc: "探索雄伟的喜马拉雅山、历史悠久的德里和文化宝藏",
+                eastDesc: "发现丰富的遗产、茶园和充满活力的节日",
+                westDesc: "体验皇家宫殿、沙漠和繁华城市",
+                southDesc: "享受热带海滩、古老寺庙和辛辣美食",
+                centralDesc: "发现古老寺庙、野生动物保护区和部落文化",
+                northeastDesc: "体验原始自然、独特文化和令人惊叹的风景",
+                backToRegions: "← 返回区域",
+                backToStates: "← 返回州",
+                backToHome: "← 返回首页",
+                bookTour: "预订您的旅行",
+                personalInfo: "个人信息",
+                professionalInfo: "专业信息",
+                locationInfo: "位置信息",
+                fullName: "全名",
+                emailAddress: "电子邮件地址",
+                phoneNumber: "电话号码",
+                countryState: "国家/州",
+                age: "年龄",
+                experience: "经验年数",
+                specialization: "专业领域",
+                languages: "会说的语言",
+                certification: "认证",
+                state: "州",
+                city: "城市",
+                serviceAreas: "服务区域",
+                availability: "可用性",
+                cancel: "取消",
+                bookNow: "立即预订",
+                register: "注册",
+                guidePortal: "导游门户",
+                guideLogin: "导游登录",
+                guideRegistration: "导游注册",
+                username: "用户名",
+                password: "密码",
+                login: "登录",
+                registerAsGuide: "注册为新导游",
+                touristPlaces: "旅游景点",
+                customerLogin: "客户登录"
+             },
+            ru: {
+                siteTitle: "Глобальный Путеводитель",
+                heroTitle: "Откройте Невероятную Индию",
+                heroSubtitle: "Испытайте магию Индии с нашими опытными местными гидами. От величественных Гималаев до тропических пляжей, исследуйте разнообразные культуры, кухни и пейзажи.",
+                startJourney: "Начните Ваше Путешествие",
+                chooseRegion: "Выберите Вашу Зону",
+                northIndia: "Северная Зона",
+                eastIndia: "Восточная Зона",
+                westIndia: "Западная Зона",
+                southIndia: "Южная Зона",
+                centralIndia: "Центральная Зона",
+                northeastIndia: "Северо-Восточная Зона",
+                northDesc: "Исследуйте величественные Гималаи, исторический Дели и культурные сокровища",
+                eastDesc: "Откройте богатое наследие, чайные плантации и яркие фестивали",
+                westDesc: "Испытайте королевские дворцы, пустыни и оживленные города",
+                southDesc: "Наслаждайтесь тропическими пляжами, древними храмами и острой кухней",
+                centralDesc: "Откройте древние храмы, заповедники дикой природы и племенную культуру",
+                northeastDesc: "Испытайте нетронутую природу, уникальные культуры и захватывающие пейзажи",
+                backToRegions: "← Назад к Зонам",
+                backToStates: "← Назад к Штатам",
+                backToHome: "← Назад Домой",
+                bookTour: "Забронируйте Ваш Тур",
+                personalInfo: "Личная Информация",
+                professionalInfo: "Профессиональная Информация",
+                locationInfo: "Информация о Местоположении",
+                fullName: "Полное Имя",
+                emailAddress: "Адрес Электронной Почты",
+                phoneNumber: "Номер Телефона",
+                countryState: "Страна/Штат",
+                age: "Возраст",
+                experience: "Годы Опыта",
+                specialization: "Область Специализации",
+                languages: "Разговорные Языки",
+                certification: "Сертификаты",
+                state: "Штат",
+                city: "Город",
+                serviceAreas: "Области Обслуживания",
+                availability: "Доступность",
+                cancel: "Отменить",
+                bookNow: "Забронировать Сейчас",
+                register: "Зарегистрироваться",
+                guidePortal: "Портал Гидов",
+                guideLogin: "Вход Гида",
+                guideRegistration: "Регистрация Гида",
+                username: "Имя Пользователя",
+                password: "Пароль",
+                login: "Войти",
+                registerAsGuide: "Зарегистрироваться как Новый Гид",
+                touristPlaces: "Туристические Места",
+                customerLogin: "Вход для клиентов"
+            },
+            ar: {
+                siteTitle: "دليل السفر العالمي",
+                heroTitle: "اكتشف الهند المذهلة",
+                heroSubtitle: "اختبر سحر الهند مع مرشدينا المحليين الخبراء. من جبال الهيمالايا المهيبة إلى الشواطئ الاستوائية، استكشف الثقافات والمأكولات والمناظر الطبيعية المتنوعة.",
+                startJourney: "ابدأ رحلتك",
+                chooseRegion: "اختر منطقتك",
+                northIndia: "المنطقة الشمالية",
+                eastIndia: "المنطقة الشرقية",
+                westIndia: "المنطقة الغربية",
+                southIndia: "المنطقة الجنوبية",
+                centralIndia: "المنطقة الوسطى",
+                northeastIndia: "المنطقة الشمالية الشرقية",
+                northDesc: "استكشف جبال الهيمالايا المهيبة ودلهي التاريخية والكنوز الثقافية",
+                eastDesc: "اكتشف التراث الغني ومزارع الشاي والمهرجانات النابضة بالحياة",
+                westDesc: "اختبر القصور الملكية والصحاري والمدن الصاخبة",
+                southDesc: "استمتع بالشواطئ الاستوائية والمعابد القديمة والمأكولات الحارة",
+                centralDesc: "اكتشف المعابد القديمة ومحميات الحياة البرية والثقافة القبلية",
+                northeastDesc: "اختبر الطبيعة البكر والثقافات الفريدة والمناظر الطبيعية الخلابة",
+                backToRegions: "← العودة إلى المناطق",
+                backToStates: "← العودة إلى الولايات",
+                backToHome: "← العودة إلى الصفحة الرئيسية",
+                bookTour: "احجز جولتك",
+                personalInfo: "المعلومات الشخصية",
+                professionalInfo: "المعلومات المهنية",
+                locationInfo: "معلومات الموقع",
+                fullName: "الاسم الكامل",
+                emailAddress: "عنوان البريد الإلكتروني",
+                phoneNumber: "رقم الهاتف",
+                countryState: "البلد/الولاية",
+                age: "العمر",
+                experience: "سنوات الخبرة",
+                specialization: "مجال التخصص",
+                languages: "اللغات المنطوقة",
+                certification: "الشهادات",
+                state: "الولاية",
+                city: "المدينة",
+                serviceAreas: "مناطق الخدمة",
+                availability: "التوفر",
+                cancel: "إلغاء",
+                bookNow: "احجز الآن",
+                register: "تسجيل",
+                guidePortal: "بوابة المرشدين",
+                guideLogin: "تسجيل دخول المرشد",
+                guideRegistration: "تسجيل المرشد",
+                username: "اسم المستخدم",
+                password: "كلمة المرور",
+                login: "تسجيل الدخول",
+                registerAsGuide: "التسجيل كمرشد جديد",
+                touristPlaces: "الأاكن السياحية",
+                customerLogin: "تسجيل دخول العميل"
+            },
+            pt: {
+                siteTitle: "Guia de Viagem Global",
+                heroTitle: "Descubra a Incrível Índia",
+                heroSubtitle: "Experimente a magia da Índia com nossos guias locais especializados. Dos majestosos Himalaias às praias tropicais, explore culturas, culinárias e paisagens diversas.",
+                startJourney: "Comece sua Jornada",
+                chooseRegion: "Escolha sua Zona",
+                northIndia: "Zona Norte",
+                eastIndia: "Zona Leste",
+                westIndia: "Zona Oeste",
+                southIndia: "Zona Sul",
+                centralIndia: "Zona Central",
+                northeastIndia: "Zona Nordeste",
+                northDesc: "Explore os majestosos Himalaias, Delhi histórica e tesouros culturais",
+                eastDesc: "Descubra rica herança, plantações de chá e festivais vibrantes",
+                westDesc: "Experimente palácios reais, desertos e cidades movimentadas",
+                southDesc: "Desfrute de praias tropicais, templos antigos e culinária picante",
+                centralDesc: "Descubra templos antigos, santuários de vida selvagem e cultura tribal",
+                northeastDesc: "Experimente natureza pristina, culturas únicas e paisagens de tirar o fôlego",
+                backToRegions: "← Voltar às Zonas",
+                backToStates: "← Voltar aos Estados",
+                backToHome: "← Voltar ao Início",
+                bookTour: "Reserve seu Tour",
+                personalInfo: "Informações Pessoais",
+                professionalInfo: "Informações Profissionais",
+                locationInfo: "Informações de Localização",
+                fullName: "Nome Completo",
+                emailAddress: "Endereço de Email",
+                phoneNumber: "Número de Telefone",
+                countryState: "País/Estado",
+                age: "Idade",
+                experience: "Anos de Experiência",
+                specialization: "Área de Especialização",
+                languages: "Idiomas Falados",
+                certification: "Certificações",
+                state: "Estado",
+                city: "Cidade",
+                serviceAreas: "Áreas de Serviço",
+                availability: "Disponibilidade",
+                cancel: "Cancelar",
+                bookNow: "Reservar Agora",
+                register: "Registrar",
+                guidePortal: "Portal de Guias",
+                guideLogin: "Login do Guia",
+                guideRegistration: "Registro do Guia",
+                username: "Nome de Usuário",
+                password: "Senha",
+                login: "Entrar",
+                registerAsGuide: "Registrar como Novo Guia",
+                touristPlaces: "Lugares Turísticos",
+                customerLogin: "Login do cliente"
+            },
+            it: {
+                siteTitle: "Guida di Viaggio Globale",
+                heroTitle: "Scopri l'Incredibile India",
+                heroSubtitle: "Vivi la magia dell'India con le nostre guide locali esperte. Dalle maestose Himalaya alle spiagge tropicali, esplora culture, cucine e paesaggi diversi.",
+                startJourney: "Inizia il tuo Viaggio",
+                chooseRegion: "Scegli la tua Zona",
+                northIndia: "Zona Nord",
+                eastIndia: "Zona Est",
+                westIndia: "Zona Ovest",
+                southIndia: "Zona Sud",
+                centralIndia: "Zona Centrale",
+                northeastIndia: "Zona Nord-Est",
+                northDesc: "Esplora le maestose Himalaya, Delhi storica e tesori culturali",
+                eastDesc: "Scopri ricca eredità, piantagioni di tè e festival vibranti",
+                westDesc: "Vivi palazzi reali, deserti e città vivaci",
+                southDesc: "Goditi spiagge tropicali, templi antichi e cucina piccante",
+                centralDesc: "Scopri templi antichi, santuari della fauna selvatica e cultura tribale",
+                northeastDesc: "Vivi natura incontaminata, culture uniche e paesaggi mozzafiato",
+                backToRegions: "← Torna alle Zone",
+                backToStates: "← Torna agli Stati",
+                backToHome: "← Torna alla Home",
+                bookTour: "Prenota il tuo Tour",
+                personalInfo: "Informazioni Personali",
+                professionalInfo: "Informazioni Professionali",
+                locationInfo: "Informazioni sulla Posizione",
+                fullName: "Nome Completo",
+                emailAddress: "Indirizzo Email",
+                phoneNumber: "Numero di Telefono",
+                countryState: "Paese/Stato",
+                age: "Età",
+                experience: "Anni di Esperienza",
+                specialization: "Area di Specializzazione",
+                languages: "Lingue Parlate",
+                certification: "Certificazioni",
+                state: "Stato",
+                city: "Città",
+                serviceAreas: "Aree di Servizio",
+                availability: "Disponibilità",
+                cancel: "Annulla",
+                bookNow: "Prenota Ora",
+                register: "Registrati",
+                guidePortal: "Portale Guide",
+                guideLogin: "Login Guida",
+                guideRegistration: "Registrazione Guida",
+                username: "Nome Utente",
+                password: "Password",
+                login: "Accedi",
+                registerAsGuide: "Registrati come Nuova Guida",
+                touristPlaces: "Luoghi Turistici",
+                customerLogin: "Accesso cliente"
+            },
+            ko: {
+                siteTitle: "글로벌 여행 가이드",
+                heroTitle: "놀라운 인도를 발견하세요",
+                heroSubtitle: "전문 현지 가이드와 함께 인도의 마법을 경험하세요. 장엄한 히말라야부터 열대 해변까지, 다양한 문화, 요리, 풍경을 탐험하세요.",
+                startJourney: "여행을 시작하세요",
+                chooseRegion: "지역을 선택하세요",
+                northIndia: "북부 지역",
+                eastIndia: "동부 지역",
+                westIndia: "서부 지역",
+                southIndia: "남부 지역",
+                centralIndia: "중부 지역",
+                northeastIndia: "북동부 지역",
+                northDesc: "장엄한 히말라야, 역사적인 델리, 문화적 보물을 탐험하세요",
+                eastDesc: "풍부한 유산, 차 농장, 활기찬 축제를 발견하세요",
+                westDesc: "왕궁, 사막, 번화한 도시를 경험하세요",
+                southDesc: "열대 해변, 고대 사원, 매운 요리를 즐기세요",
+                centralDesc: "고대 사원, 야생동물 보호구역, 부족 문화를 발견하세요",
+                northeastDesc: "원시 자연, 독특한 문화, 숨막히는 풍경을 경험하세요",
+                backToRegions: "← 지역으로 돌아가기",
+                backToStates: "← 주로 돌아가기",
+                backToHome: "← 홈으로 돌아가기",
+                bookTour: "투어 예약",
+                personalInfo: "개인 정보",
+                professionalInfo: "전문 정보",
+                locationInfo: "위치 정보",
+                fullName: "전체 이름",
+                emailAddress: "이메일 주소",
+                phoneNumber: "전화번호",
+                countryState: "국가/주",
+                age: "나이",
+                experience: "경험 년수",
+                specialization: "전문 분야",
+                languages: "구사 언어",
+                certification: "자격증",
+                state: "주",
+                city: "도시",
+                serviceAreas: "서비스 지역",
+                availability: "가용성",
+                cancel: "취소",
+                bookNow: "지금 예약",
+                register: "등록",
+                guidePortal: "가이드 포털",
+                guideLogin: "가이드 로그인",
+                guideRegistration: "가이드 등록",
+                username: "사용자명",
+                password: "비밀번호",
+                login: "로그인",
+                registerAsGuide: "새 가이드로 등록",
+                touristPlaces: "관광지",
+                customerLogin: "고객 로그인"
+            },
+            nl: {
+                siteTitle: "Wereldwijde Reisgids",
+                heroTitle: "Ontdek het Ongelooflijke India",
+                heroSubtitle: "Ervaar de magie van India met onze deskundige lokale gidsen. Van de majestueuze Himalaya tot tropische stranden, verken diverse culturen, keukens en landschappen.",
+                startJourney: "Begin je Reis",
+                chooseRegion: "Kies je Zone",
+                northIndia: "Noordelijke Zone",
+                eastIndia: "Oostelijke Zone",
+                westIndia: "Westelijke Zone",
+                southIndia: "Zuidelijke Zone",
+                centralIndia: "Centrale Zone",
+                northeastIndia: "Noordoostelijke Zone",
+                northDesc: "Verken de majestueuze Himalaya, historisch Delhi en culturele schatten",
+                eastDesc: "Ontdek rijke erfgoed, theeplantages en levendige festivals",
+                westDesc: "Ervaar koninklijke paleizen, woestijnen en bruisende steden",
+                southDesc: "Geniet van tropische stranden, oude tempels en pittige keuken",
+                centralDesc: "Ontdek oude tempels, wildreservaten en stamcultuur",
+                northeastDesc: "Ervaar ongerepte natuur, unieke culturen en adembenemende landschappen",
+                backToRegions: "← Terug naar Zones",
+                backToStates: "← Terug naar Staten",
+                backToHome: "← Terug naar Home",
+                bookTour: "Boek je Tour",
+                personalInfo: "Persoonlijke Informatie",
+                professionalInfo: "Professionele Informatie",
+                locationInfo: "Locatie Informatie",
+                fullName: "Volledige Naam",
+                emailAddress: "E-mailadres",
+                phoneNumber: "Telefoonnummer",
+                countryState: "Land/Staat",
+                age: "Leeftijd",
+                experience: "Jaren Ervaring",
+                specialization: "Specialisatiegebied",
+                languages: "Gesproken Talen",
+                certification: "Certificeringen",
+                state: "Staat",
+                city: "Stad",
+                serviceAreas: "Servicegebieden",
+                availability: "Beschikbaarheid",
+                cancel: "Annuleren",
+                bookNow: "Nu Boeken",
+                register: "Registreren",
+                guidePortal: "Gids Portaal",
+                guideLogin: "Gids Inloggen",
+                guideRegistration: "Gids Registratie",
+                username: "Gebruikersnaam",
+                password: "Wachtwoord",
+                login: "Inloggen",
+                registerAsGuide: "Registreren als Nieuwe Gids",
+                touristPlaces: "Toeristische Plaatsen",
+                customerLogin: "Klant Inloggen"
+            },
+            sv: {
+                siteTitle: "Global Reseguide",
+                heroTitle: "Upptäck det Otroliga Indien",
+                heroSubtitle: "Upplev magin i Indien med våra expertlokala guider. Från de majestätiska Himalaya till tropiska stränder, utforska olika kulturer, kök och landskap.",
+                startJourney: "Börja din Resa",
+                chooseRegion: "Välj din Zon",
+                northIndia: "Norra Zonen",
+                eastIndia: "Östra Zonen",
+                westIndia: "Västra Zonen",
+                southIndia: "Södra Zonen",
+                centralIndia: "Centrala Zonen",
+                northeastIndia: "Nordöstra Zonen",
+                northDesc: "Utforska de majestätiska Himalaya, historiska Delhi och kulturella skatter",
+                eastDesc: "Upptäck rikt arv, teplantager och livliga festivaler",
+                westDesc: "Upplev kungliga palats, öknar och livliga städer",
+                southDesc: "Njut av tropiska stränder, gamla tempel och kryddig mat",
+                centralDesc: "Upptäck gamla tempel, vildmarksreservat och stamkultur",
+                northeastDesc: "Upplev orörd natur, unika kulturer och hisnande landskap",
+                backToRegions: "← Tillbaka till Zoner",
+                backToStates: "← Tillbaka till Stater",
+                backToHome: "← Tillbaka till Hem",
+                bookTour: "Boka din Tur",
+                personalInfo: "Personlig Information",
+                professionalInfo: "Professionell Information",
+                locationInfo: "Platsinformation",
+                fullName: "Fullständigt Namn",
+                emailAddress: "E-postadress",
+                phoneNumber: "Telefonnummer",
+                countryState: "Land/Stat",
+                age: "Ålder",
+                experience: "År av Erfarenhet",
+                specialization: "Specialiseringsområde",
+                languages: "Talade Språk",
+                certification: "Certifieringar",
+                state: "Stat",
+                city: "Stad",
+                serviceAreas: "Serviceområden",
+                availability: "Tillgänglighet",
+                cancel: "Avbryt",
+                bookNow: "Boka Nu",
+                register: "Registrera",
+                guidePortal: "Guidportal",
+                guideLogin: "Guidinloggning",
+                guideRegistration: "Guidregistrering",
+                username: "Användarnamn",
+                password: "Lösenord",
+                login: "Logga in",
+                registerAsGuide: "Registrera som Ny Guide",
+                touristPlaces: "Turistplatser",
+                customerLogin: "Kundinloggning"
+            },
+            tr: {
+                siteTitle: "Küresel Seyahat Rehberi",
+                heroTitle: "İnanılmaz Hindistan'ı Keşfedin",
+                heroSubtitle: "Uzman yerel rehberlerimizle Hindistan'ın büyüsünü yaşayın. Görkemli Himalayalar'dan tropik plajlara kadar, çeşitli kültürleri, mutfakları ve manzaraları keşfedin.",
+                startJourney: "Yolculuğunuzu Başlatın",
+                chooseRegion: "Bölgenizi Seçin",
+                northIndia: "Kuzey Bölgesi",
+                eastIndia: "Doğu Bölgesi",
+                westIndia: "Batı Bölgesi",
+                southIndia: "Güney Bölgesi",
+                centralIndia: "Merkez Bölgesi",
+                northeastIndia: "Kuzeydoğu Bölgesi",
+                northDesc: "Görkemli Himalayalar, tarihi Delhi ve kültürel hazineleri keşfedin",
+                eastDesc: "Zengin mirası, çay bahçelerini ve canlı festivalleri keşfedin",
+                westDesc: "Kraliyet sarayları, çöller ve hareketli şehirleri deneyimleyin",
+                southDesc: "Tropik plajlar, antik tapınaklar ve baharatlı mutfağın tadını çıkarın",
+                centralDesc: "Antik tapınakları, vahşi yaşam koruma alanlarını ve kabile kültürünü keşfedin",
+                northeastDesc: "El değmemiş doğayı, benzersiz kültürleri ve nefes kesici manzaraları deneyimleyin",
+                backToRegions: "← Bölgelere Geri Dön",
+                backToStates: "← Eyaletlere Geri Dön",
+                backToHome: "← Ana Sayfaya Geri Dön",
+                bookTour: "Turunuzu Rezerve Edin",
+                personalInfo: "Kişisel Bilgiler",
+                professionalInfo: "Mesleki Bilgiler",
+                locationInfo: "Konum Bilgileri",
+                fullName: "Tam Ad",
+                emailAddress: "E-posta Adresi",
+                phoneNumber: "Telefon Numarası",
+                countryState: "Ülke/Eyalet",
+                age: "Yaş",
+                experience: "Deneyim Yılları",
+                specialization: "Uzmanlık Alanı",
+                languages: "Konuşulan Diller",
+                certification: "Sertifikalar",
+                state: "Eyalet",
+                city: "Şehir",
+                serviceAreas: "Hizmet Alanları",
+                availability: "Müsaitlik",
+                cancel: "İptal",
+                bookNow: "Şimdi Rezerve Et",
+                register: "Kayıt Ol",
+                guidePortal: "Rehber Portalı",
+                guideLogin: "Rehber Girişi",
+                guideRegistration: "Rehber Kaydı",
+                username: "Kullanıcı Adı",
+                password: "Şifre",
+                login: "Giriş Yap",
+                registerAsGuide: "Yeni Rehber Olarak Kayıt Ol",
+                touristPlaces: "Turistik Yerler",
+                customerLogin: "Müşteri Girişi"
+            }
+       
+        };
+
+        // Language change function
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+           
+            // Update dynamic content based on current page
+            updateDynamicContent();
+        }
+
+        // Update dynamic content when language changes
+        function updateDynamicContent() {
+            // Update region title if on states page
+            if (!document.getElementById('statesSection').classList.contains('hidden')) {
+                const regionNames = {
+                    north: translations[currentLanguage].northIndia || 'Northern Zone',
+                    east: translations[currentLanguage].eastIndia || 'Eastern Zone',
+                    west: translations[currentLanguage].westIndia || 'Western Zone',
+                    south: translations[currentLanguage].southIndia || 'Southern Zone',
+                    central: translations[currentLanguage].centralIndia || 'Central Zone',
+                    northeast: translations[currentLanguage].northeastIndia || 'Northeastern Zone'
+                };
+                document.getElementById('regionTitle').textContent = regionNames[currentRegion];
+            }
+           
+            // Update state title if on places page
+            if (!document.getElementById('placesSection').classList.contains('hidden')) {
+                const touristPlacesText = translations[currentLanguage].touristPlaces || 'Tourist Places';
+                document.getElementById('stateTitle').textContent = currentState + ' - ' + touristPlacesText;
+            }
+        }
+
+        // Initialize language selector
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.addEventListener('change', function() {
+                changeLanguage(this.value);
+            });
+        });
+
+        // Show home section
+        function showHome() {
+            document.getElementById('heroSection').classList.remove('hidden');
+            document.getElementById('regionsSection').classList.add('hidden');
+            document.getElementById('statesSection').classList.add('hidden');
+            document.getElementById('placesSection').classList.add('hidden');
+        }
+
+        // Show regions section
+        function showRegions() {
+            document.getElementById('heroSection').classList.add('hidden');
+            document.getElementById('regionsSection').classList.remove('hidden');
+            document.getElementById('statesSection').classList.add('hidden');
+            document.getElementById('placesSection').classList.add('hidden');
+        }
+
+        // Show states for selected region
+        function showStates(region) {
+            currentRegion = region;
+            const regionNames = {
+                north: translations[currentLanguage].northIndia || 'Northern Zone',
+                east: translations[currentLanguage].eastIndia || 'Eastern Zone',
+                west: translations[currentLanguage].westIndia || 'Western Zone',
+                south: translations[currentLanguage].southIndia || 'Southern Zone',
+                central: translations[currentLanguage].centralIndia || 'Central Zone',
+                northeast: translations[currentLanguage].northeastIndia || 'Northeastern Zone'
+            };
+           
+            document.getElementById('regionTitle').textContent = regionNames[region];
+            document.getElementById('regionsSection').classList.add('hidden');
+            document.getElementById('statesSection').classList.remove('hidden');
+            document.getElementById('placesSection').classList.add('hidden');
+           
+            // Populate states grid
+            const statesGrid = document.getElementById('statesGrid');
+            statesGrid.innerHTML = '';
+           
+            statesData[region].forEach(state => {
+                const stateCard = document.createElement('div');
+                stateCard.className = 'bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer';
+                stateCard.onclick = () => showPlaces(state.name);
+                stateCard.innerHTML = `
+                    <div class="h-24 sm:h-28 lg:h-32 bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="text-2xl sm:text-3xl mb-1 sm:mb-2">${state.emoji}</div>
+                            <h3 class="text-lg sm:text-xl font-bold">${state.name}</h3>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4">
+                        <p class="text-gray-600 text-xs sm:text-sm">${state.desc}</p>
+                    </div>
+                `;
+                statesGrid.appendChild(stateCard);
+            });
+        }
+
+        // Show places for selected state with images and prices
+        function showPlaces(stateName) {
+            currentState = stateName;
+            const touristPlacesText = translations[currentLanguage].touristPlaces || 'Tourist Places';
+            document.getElementById('stateTitle').textContent = stateName + ' - ' + touristPlacesText;
+            document.getElementById('statesSection').classList.add('hidden');
+            document.getElementById('placesSection').classList.remove('hidden');
+           
+            // Populate places grid with images and prices
+            const placesGrid = document.getElementById('placesGrid');
+            placesGrid.innerHTML = '';
+           
+            const places = placesData[stateName] || [];
+            places.forEach(place => {
+                const placeCard = document.createElement('div');
+                placeCard.className = 'bg-white rounded-xl shadow-lg overflow-hidden card-hover';
+                placeCard.innerHTML = `
+                    <div class="h-32 sm:h-40 lg:h-48 bg-gray-100 relative overflow-hidden">
+                        <img src="${place.image}" alt="${place.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="hidden w-full h-full bg-gradient-to-br from-green-400 to-blue-500 items-center justify-center">
+                            <h3 class="text-lg sm:text-xl font-bold text-white px-2 text-center">${place.name}</h3>
+                        </div>
+                        <div class="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded-lg text-sm font-semibold">
+                            ${place.price}
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 lg:p-6">
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2">${place.name}</h3>
+                        <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">${place.desc}</p>
+                        <button onclick="showCustomerRegistration()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg font-medium transition duration-300 text-sm sm:text-base">
+                            ${translations[currentLanguage].bookTour || 'Book Tour'}
+                        </button>
+                    </div>
+                `;
+                placesGrid.appendChild(placeCard);
+            });
+        }
+
+        // Go back to states from places
+        function goBackToStates() {
+            showStates(currentRegion);
+        }
+
+        // Show tourist form (redirect to customer registration)
+        function showTouristForm(placeName) {
+            showCustomerRegistration();
+        }
+
+        // Close tourist form
+        function closeTouristForm() {
+            document.getElementById('touristForm').classList.add('hidden');
+        }
+
+        // Submit booking
+        function submitBooking(event) {
+            event.preventDefault();
+            alert('Booking submitted successfully! We will contact you soon.');
+            closeTouristForm();
+        }
+
+        // Show customer login
+        function showCustomerLogin() {
+            document.getElementById('customerLoginModal').classList.remove('hidden');
+        }
+
+        // Close customer login
+        function closeCustomerLogin() {
+            document.getElementById('customerLoginModal').classList.add('hidden');
+        }
+
+        // Submit customer login
+        function submitCustomerLogin(event) {
+            event.preventDefault();
+            alert('Customer login successful! Welcome to your dashboard.');
+            closeCustomerLogin();
+        }
+
+        // Show customer registration
+        function showCustomerRegistration() {
+            document.getElementById('customerLoginModal').classList.add('hidden');
+            document.getElementById('customerRegistrationModal').classList.remove('hidden');
+        }
+
+        // Close customer registration
+        function closeCustomerRegistration() {
+            document.getElementById('customerRegistrationModal').classList.add('hidden');
+        }
+
+        // Submit customer registration
+        function submitCustomerRegistration(event) {
+            event.preventDefault();
+            alert('Booking is now complete! Thank you for choosing us. Enjoy your trip!');
+            closeCustomerRegistration();
+            // Reset to home page
+            showHome();
+        }
+
+        // Show guide portal
+        function showGuideLogin() {
+            document.getElementById('guidePortalModal').classList.remove('hidden');
+        }
+
+        // Close guide portal
+        function closeGuidePortal() {
+            document.getElementById('guidePortalModal').classList.add('hidden');
+        }
+
+        // Submit guide login
+        function submitGuideLogin(event) {
+            event.preventDefault();
+            alert('Guide login successful! Welcome to the guide dashboard.');
+            closeGuidePortal();
+        }
+
+        // Show guide registration
+        function showGuideRegistration() {
+            document.getElementById('guidePortalModal').classList.add('hidden');
+            document.getElementById('guideRegistrationModal').classList.remove('hidden');
+        }
+
+        // Close guide registration
+        function closeGuideRegistration() {
+            document.getElementById('guideRegistrationModal').classList.add('hidden');
+        }
+
+        // Handle file upload display
+        function handleFileUpload(input, displayId) {
+            const file = input.files[0];
+            const displayElement = document.getElementById(displayId);
+           
+            if (file) {
+                displayElement.textContent = file.name;
+                displayElement.classList.remove('hidden');
+                input.parentElement.parentElement.classList.add('border-green-500', 'bg-green-50');
+            }
+        }
+
+        // Submit guide registration
+        function submitGuideRegistration(event) {
+            event.preventDefault();
+           
+            // Check if all required files are uploaded
+            const idFile = document.getElementById('idUpload').files[0];
+            const certificateFile = document.getElementById('certificateUpload').files[0];
+            const profilePhoto = document.getElementById('profilePhotoUpload').files[0];
+           
+            if (!idFile || !certificateFile || !profilePhoto) {
+                alert('Please upload all required documents: Government ID, Certificate, and Profile Photo.');
+                return;
+            }
+           
+            alert('Guide registration submitted successfully! We will review your application and contact you soon.');
+            closeGuideRegistration();
+        }
+    </script>
+</body>
+</html>
